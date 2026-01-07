@@ -9,30 +9,41 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function Insights() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get(`${API}/articles`);
+        const lang = i18n.language;
+        const response = await axios.get(`${API}/articles?lang=${lang}`);
         setArticles(response.data);
       } catch (error) {
         console.error('Error fetching articles:', error);
       }
     };
     fetchArticles();
-  }, []);
+  }, [i18n.language]);
+
+  const getLocalizedField = (item, field) => {
+    if (i18n.language === 'en' && item[`${field}_en`]) {
+      return item[`${field}_en`];
+    }
+    return item[field];
+  };
 
   return (
     <div className="min-h-screen pt-32" data-testid="insights-page">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-6xl md:text-8xl font-black font-heading text-white mb-8 tracking-tighter uppercase">
-            Инсайты
+            {t('nav.insights')}
           </h1>
           <p className="text-xl text-white/70 mb-12 max-w-3xl">
-            Статьи о китайском рынке, инвестициях и международной торговле
+            {i18n.language === 'en'
+              ? 'Articles on Chinese market, investments and international trade'
+              : 'Статьи о китайском рынке, инвестициях и международной торговле'
+            }
           </p>
         </motion.div>
 
@@ -51,13 +62,15 @@ export default function Insights() {
                 data-testid={`article-card-${article.id}`}
               >
                 <div className="relative h-48">
-                  <img src={article.image_url} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src={article.image_url} alt={getLocalizedField(article, 'title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
                 </div>
                 <div className="p-6">
                   <div className="text-xs text-[#E11D2E] font-mono mb-2">{article.category.toUpperCase()}</div>
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#E11D2E] transition-colors line-clamp-2">{article.title}</h3>
-                  <p className="text-white/60 mb-4 line-clamp-3">{article.excerpt}</p>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#E11D2E] transition-colors line-clamp-2">
+                    {getLocalizedField(article, 'title')}
+                  </h3>
+                  <p className="text-white/60 mb-4 line-clamp-3">{getLocalizedField(article, 'excerpt')}</p>
                   <div className="flex items-center gap-4 text-sm text-white/40">
                     <div className="flex items-center gap-1">
                       <User className="w-4 h-4" />
@@ -65,7 +78,7 @@ export default function Insights() {
                     </div>
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
-                      <span>{new Date(article.published_at).toLocaleDateString('ru-RU')}</span>
+                      <span>{new Date(article.published_at).toLocaleDateString(i18n.language === 'en' ? 'en-US' : 'ru-RU')}</span>
                     </div>
                   </div>
                 </div>

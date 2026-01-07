@@ -9,7 +9,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function Invest() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [filters, setFilters] = useState({ stage: '', industry: '' });
@@ -17,7 +17,8 @@ export default function Invest() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`${API}/projects`);
+        const lang = i18n.language;
+        const response = await axios.get(`${API}/projects?lang=${lang}`);
         setProjects(response.data);
         setFilteredProjects(response.data);
       } catch (error) {
@@ -25,7 +26,7 @@ export default function Invest() {
       }
     };
     fetchProjects();
-  }, []);
+  }, [i18n.language]);
 
   useEffect(() => {
     let filtered = projects;
@@ -38,15 +39,25 @@ export default function Invest() {
     setFilteredProjects(filtered);
   }, [filters, projects]);
 
+  const getLocalizedField = (item, field) => {
+    if (i18n.language === 'en' && item[`${field}_en`]) {
+      return item[`${field}_en`];
+    }
+    return item[field];
+  };
+
   return (
     <div className="min-h-screen pt-32" data-testid="invest-page">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-6xl md:text-8xl font-black font-heading text-white mb-8 tracking-tighter uppercase">
-            Инвестпроекты
+            {t('nav.invest')}
           </h1>
           <p className="text-xl text-white/70 mb-12 max-w-3xl">
-            Отобранные инвестиционные проекты с проверенной бизнес-моделью и перспективами роста
+            {i18n.language === 'en'
+              ? 'Selected investment projects with proven business model and growth prospects'
+              : 'Отобранные инвестиционные проекты с проверенной бизнес-моделью и перспективами роста'
+            }
           </p>
         </motion.div>
 
@@ -54,7 +65,7 @@ export default function Invest() {
         <div className="glass rounded-3xl p-6 mb-12 flex flex-wrap gap-4" data-testid="filters">
           <div className="flex items-center gap-2">
             <Filter className="w-5 h-5 text-[#E11D2E]" />
-            <span className="text-white font-medium">Фильтры:</span>
+            <span className="text-white font-medium">{i18n.language === 'en' ? 'Filters:' : 'Фильтры:'}</span>
           </div>
           <select
             value={filters.stage}
@@ -62,7 +73,7 @@ export default function Invest() {
             className="bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-2 text-white"
             data-testid="filter-stage"
           >
-            <option value="">Все стадии</option>
+            <option value="">{i18n.language === 'en' ? 'All stages' : 'Все стадии'}</option>
             <option value="seed">Seed</option>
             <option value="growth">Growth</option>
             <option value="pre-ipo">Pre-IPO</option>
@@ -73,7 +84,7 @@ export default function Invest() {
             className="bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-2 text-white"
             data-testid="filter-industry"
           >
-            <option value="">Все отрасли</option>
+            <option value="">{i18n.language === 'en' ? 'All industries' : 'Все отрасли'}</option>
             <option value="technology">Technology</option>
             <option value="energy">Energy</option>
             <option value="healthcare">Healthcare</option>
@@ -96,15 +107,17 @@ export default function Invest() {
                 data-testid={`project-card-${project.id}`}
               >
                 <div className="relative h-48">
-                  <img src={project.image_url} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src={project.image_url} alt={getLocalizedField(project, 'title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
                   <div className="absolute top-4 right-4 bg-[#E11D2E] text-white text-xs px-3 py-1 rounded-full">
                     {project.stage.toUpperCase()}
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[#E11D2E] transition-colors">{project.title}</h3>
-                  <p className="text-white/60 mb-4 line-clamp-2">{project.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[#E11D2E] transition-colors">
+                    {getLocalizedField(project, 'title')}
+                  </h3>
+                  <p className="text-white/60 mb-4 line-clamp-2">{getLocalizedField(project, 'description')}</p>
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-white/40">{project.industry}</span>
                     <span className="text-[#E11D2E] font-bold">{project.capital_required}</span>

@@ -8,30 +8,41 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function Partners() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [partners, setPartners] = useState([]);
 
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const response = await axios.get(`${API}/partners`);
+        const lang = i18n.language;
+        const response = await axios.get(`${API}/partners?lang=${lang}`);
         setPartners(response.data);
       } catch (error) {
         console.error('Error fetching partners:', error);
       }
     };
     fetchPartners();
-  }, []);
+  }, [i18n.language]);
+
+  const getLocalizedField = (item, field) => {
+    if (i18n.language === 'en' && item[`${field}_en`]) {
+      return item[`${field}_en`];
+    }
+    return item[field];
+  };
 
   return (
     <div className="min-h-screen pt-32" data-testid="partners-page">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-6xl md:text-8xl font-black font-heading text-white mb-8 tracking-tighter uppercase">
-            Партнеры
+            {t('nav.partners')}
           </h1>
           <p className="text-xl text-white/70 mb-12 max-w-3xl">
-            Проверенные производители и дистрибьюторы из Китая и других стран
+            {i18n.language === 'en'
+              ? 'Verified manufacturers and distributors from China and other countries'
+              : 'Проверенные производители и дистрибьюторы из Китая и других стран'
+            }
           </p>
         </motion.div>
 
@@ -50,10 +61,12 @@ export default function Partners() {
                 data-testid={`partner-card-${partner.id}`}
               >
                 <div className="w-24 h-24 rounded-2xl bg-white/5 mb-6 overflow-hidden">
-                  <img src={partner.logo_url} alt={partner.name} className="w-full h-full object-cover" />
+                  <img src={partner.logo_url} alt={getLocalizedField(partner, 'name')} className="w-full h-full object-cover" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[#E11D2E] transition-colors">{partner.name}</h3>
-                <p className="text-white/60 mb-4">{partner.description}</p>
+                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[#E11D2E] transition-colors">
+                  {getLocalizedField(partner, 'name')}
+                </h3>
+                <p className="text-white/60 mb-4">{getLocalizedField(partner, 'description')}</p>
                 <div className="flex flex-wrap gap-2">
                   {partner.categories.map((cat, cidx) => (
                     <span key={cidx} className="text-xs bg-white/5 text-white/70 px-3 py-1 rounded-full">{cat}</span>
