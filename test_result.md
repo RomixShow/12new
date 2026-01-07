@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Исправить перевод на всех страницах сайта AICHIN GROUP и исправить мобильную верстку (круглый фон меню)"
+user_problem_statement: "Test the AICHIN GROUP admin panel with new user management features including login, password change, and user CRUD operations"
 
 backend:
   - task: "API endpoints with language support"
