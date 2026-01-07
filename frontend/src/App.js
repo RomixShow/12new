@@ -33,11 +33,11 @@ function App() {
           <Header />
           <div className="noise" />
           <Routes>
-            <Route path=\"/\" element={<Home />} />
-            <Route path=\"/about\" element={<About />} />
-            <Route path=\"/services\" element={<Services />} />
-            <Route path=\"/services/:slug\" element={<ServiceDetail />} />
-            <Route path=\"/contact\" element={<Contact />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/invest" element={<Invest />} />
             <Route path="/partners" element={<Partners />} />
             <Route path="/events" element={<Events />} />
