@@ -222,5 +222,23 @@
         { "name": "Enterprise", "desc": "Full support", "features": ["All from Pro", "Negotiations", "Deal closing"] }
       ]
     }
+  },
+  "invest": {
+    "subtitle": "Selected investment projects with proven business model and growth prospects",
+    "filters": "Filters:",
+    "all_stages": "All stages",
+    "all_industries": "All industries"
+  },
+  "partners": {
+    "subtitle": "Verified manufacturers and distributors from China and other countries"
+  },
+  "events": {
+    "subtitle": "Exhibitions, forums and business tours in China"
+  },
+  "cases": {
+    "subtitle": "Completed projects and success stories of our clients"
+  },
+  "insights": {
+    "subtitle": "Articles on Chinese market, investments and international trade"
   }
 }
