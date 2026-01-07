@@ -22,4 +22,4 @@ export function useLocalizedField() {
   };
 
   return { getField, currentLang };
-}\n
+}
