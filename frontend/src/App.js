@@ -21,6 +21,8 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Download from './pages/Download';
 import Admin from './pages/Admin';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   useEffect(() => {
