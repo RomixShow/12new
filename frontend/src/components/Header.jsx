@@ -128,7 +128,7 @@ export default function Header() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-full left-0 right-0 bg-[#0A0A0A]/98 backdrop-blur-xl border-t border-white/10"
+              className="absolute top-full left-0 right-0 bg-[#0A0A0A] border-t border-white/10 shadow-2xl"
               data-testid="mobile-menu"
             >
               <nav className="flex flex-col px-4 py-6">
