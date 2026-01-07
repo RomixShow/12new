@@ -54,10 +54,7 @@ export default function Invest() {
             {t('nav.invest')}
           </h1>
           <p className="text-xl text-white/70 mb-12 max-w-3xl">
-            {i18n.language === 'en'
-              ? 'Selected investment projects with proven business model and growth prospects'
-              : 'Отобранные инвестиционные проекты с проверенной бизнес-моделью и перспективами роста'
-            }
+            {t('invest.subtitle')}
           </p>
         </motion.div>
 
@@ -65,7 +62,7 @@ export default function Invest() {
         <div className="glass rounded-3xl p-6 mb-12 flex flex-wrap gap-4" data-testid="filters">
           <div className="flex items-center gap-2">
             <Filter className="w-5 h-5 text-[#E11D2E]" />
-            <span className="text-white font-medium">{i18n.language === 'en' ? 'Filters:' : 'Фильтры:'}</span>
+            <span className="text-white font-medium">{t('invest.filters')}</span>
           </div>
           <select
             value={filters.stage}
@@ -73,7 +70,7 @@ export default function Invest() {
             className="bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-2 text-white"
             data-testid="filter-stage"
           >
-            <option value="">{i18n.language === 'en' ? 'All stages' : 'Все стадии'}</option>
+            <option value="">{t('invest.all_stages')}</option>
             <option value="seed">Seed</option>
             <option value="growth">Growth</option>
             <option value="pre-ipo">Pre-IPO</option>
@@ -84,7 +81,7 @@ export default function Invest() {
             className="bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-2 text-white"
             data-testid="filter-industry"
           >
-            <option value="">{i18n.language === 'en' ? 'All industries' : 'Все отрасли'}</option>
+            <option value="">{t('invest.all_industries')}</option>
             <option value="technology">Technology</option>
             <option value="energy">Energy</option>
             <option value="healthcare">Healthcare</option>
