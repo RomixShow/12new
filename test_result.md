@@ -286,3 +286,5 @@ test_plan:
 agent_communication:
   - agent: "main"
     message: "Completed translation fixes for all major pages. Updated localization JSON files with new keys for About, Contact, ServiceDetail, Invest, Partners, Events, Cases, Insights pages. Fixed mobile header from round to rectangular shape. Screenshots verified: EN/RU switching works correctly on About, Contact, Services, ServiceDetail pages. Ready for comprehensive frontend testing."
+  - agent: "main"
+    message: "Added Static Pages functionality: Privacy, Terms, NDA, Download pages now load content from database with auto-translation (deep-translator). Added 'Страницы' tab to admin panel for editing these pages. API endpoints: GET /api/pages, GET /api/pages/{slug}, POST/PUT/DELETE /admin/pages. Initialized database with content for all 4 pages."
