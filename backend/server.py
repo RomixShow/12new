@@ -1,12 +1,12 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 
@@ -27,44 +27,212 @@ api_router = APIRouter(prefix="/api")
 
 
 # Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
+class Service(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    slug: str
+    name: str
+    description: str
+    image_url: str
+    features: List[str]
+
+class CaseStudy(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    slug: str
+    title: str
+    client: str
+    category: str
+    description: str
+    challenge: str
+    solution: str
+    results: List[str]
+    image_url: str
+    created_at: str
+
+class Event(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    slug: str
+    title: str
+    date: str
+    location: str
+    type: str
+    description: str
+    program: List[dict]
+    image_url: str
+
+class InvestmentProject(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    slug: str
+    title: str
+    description: str
+    stage: str
+    industry: str
+    country: str
+    capital_required: str
+    timeline: str
+    status: str
+    image_url: str
+
+class Partner(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    slug: str
+    name: str
+    description: str
+    categories: List[str]
+    country: str
+    logo_url: str
+
+class Article(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    slug: str
+    title: str
+    excerpt: str
+    content: str
+    author: str
+    published_at: str
+    image_url: str
+    category: str
+
+class TeamMember(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    name: str
+    position: str
+    bio: str
+    image_url: str
+    linkedin: Optional[str] = None
+
+class ContactFormData(BaseModel):
+    name: str
+    email: EmailStr
+    company: Optional[str] = None
+    phone: Optional[str] = None
+    service: Optional[str] = None
+    message: str
+
+class ContactForm(BaseModel):
+    model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    name: str
+    email: EmailStr
+    company: Optional[str] = None
+    phone: Optional[str] = None
+    service: Optional[str] = None
+    message: str
+    created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
 
-# Add your routes to the router instead of directly to app
+# Routes
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "AICHIN GROUP API"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
+# Services
+@api_router.get("/services", response_model=List[Service])
+async def get_services():
+    services = await db.services.find({}, {"_id": 0}).to_list(100)
+    return services
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+@api_router.get("/services/{slug}", response_model=Service)
+async def get_service(slug: str):
+    service = await db.services.find_one({"slug": slug}, {"_id": 0})
+    if not service:
+        raise HTTPException(status_code=404, detail="Service not found")
+    return service
+
+# Cases
+@api_router.get("/cases", response_model=List[CaseStudy])
+async def get_cases(category: Optional[str] = None):
+    query = {"category": category} if category else {}
+    cases = await db.cases.find(query, {"_id": 0}).to_list(100)
+    return cases
+
+@api_router.get("/cases/{slug}", response_model=CaseStudy)
+async def get_case(slug: str):
+    case = await db.cases.find_one({"slug": slug}, {"_id": 0})
+    if not case:
+        raise HTTPException(status_code=404, detail="Case not found")
+    return case
+
+# Events
+@api_router.get("/events", response_model=List[Event])
+async def get_events():
+    events = await db.events.find({}, {"_id": 0}).to_list(100)
+    return events
+
+@api_router.get("/events/{slug}", response_model=Event)
+async def get_event(slug: str):
+    event = await db.events.find_one({"slug": slug}, {"_id": 0})
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+    return event
+
+# Investment Projects
+@api_router.get("/projects", response_model=List[InvestmentProject])
+async def get_projects(stage: Optional[str] = None, industry: Optional[str] = None):
+    query = {}
+    if stage:
+        query["stage"] = stage
+    if industry:
+        query["industry"] = industry
+    projects = await db.projects.find(query, {"_id": 0}).to_list(100)
+    return projects
+
+@api_router.get("/projects/{slug}", response_model=InvestmentProject)
+async def get_project(slug: str):
+    project = await db.projects.find_one({"slug": slug}, {"_id": 0})
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return project
+
+# Partners
+@api_router.get("/partners", response_model=List[Partner])
+async def get_partners(category: Optional[str] = None):
+    query = {}
+    if category:
+        query["categories"] = category
+    partners = await db.partners.find(query, {"_id": 0}).to_list(100)
+    return partners
+
+@api_router.get("/partners/{slug}", response_model=Partner)
+async def get_partner(slug: str):
+    partner = await db.partners.find_one({"slug": slug}, {"_id": 0})
+    if not partner:
+        raise HTTPException(status_code=404, detail="Partner not found")
+    return partner
+
+# Articles/Blog
+@api_router.get("/articles", response_model=List[Article])
+async def get_articles(category: Optional[str] = None):
+    query = {"category": category} if category else {}
+    articles = await db.articles.find(query, {"_id": 0}).to_list(100)
+    return articles
+
+@api_router.get("/articles/{slug}", response_model=Article)
+async def get_article(slug: str):
+    article = await db.articles.find_one({"slug": slug}, {"_id": 0})
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+    return article
+
+# Team
+@api_router.get("/team", response_model=List[TeamMember])
+async def get_team():
+    team = await db.team.find({}, {"_id": 0}).to_list(100)
+    return team
+
+# Contact Form
+@api_router.post("/contact", response_model=ContactForm)
+async def submit_contact_form(form_data: ContactFormData):
+    contact = ContactForm(**form_data.model_dump())
+    doc = contact.model_dump()
+    await db.contact_forms.insert_one(doc)
+    return contact
 
 # Include the router in the main app
 app.include_router(api_router)
