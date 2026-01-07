@@ -41,7 +41,7 @@ export default function Header() {
       animate={{ y: 0 }}
       className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 ${
         isScrolled ? 'glass' : 'bg-transparent'
-      } rounded-full px-6 py-4`}
+      } rounded-2xl lg:rounded-full px-4 md:px-6 py-3 md:py-4`}
       data-testid="main-header"
     >
       <div className="flex items-center justify-between">
