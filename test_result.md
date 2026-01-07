@@ -124,11 +124,14 @@ frontend:
     file: "/app/frontend/src/pages/About.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Refactored to use t() function from i18n for all static texts"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: About page translation works perfectly. Title switches from 'ABOUT US' (EN) to 'О КОМПАНИИ' (RU). All sections including Values, Geography, and Team are properly translated."
 
   - task: "Services page translation"
     implemented: true
