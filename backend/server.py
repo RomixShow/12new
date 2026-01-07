@@ -411,9 +411,30 @@ async def get_article(slug: str, lang: Optional[str] = 'en'):
 
 # Team
 @api_router.get("/team", response_model=List[TeamMember])
-async def get_team():
+async def get_team(lang: Optional[str] = 'en'):
     team = await db.team.find({}, {"_id": 0}).to_list(100)
+    if lang == 'en':
+        for member in team:
+            add_translations(member)
     return team
+
+# Static Pages (Privacy, Terms, NDA, Download)
+@api_router.get("/pages")
+async def get_all_pages(lang: Optional[str] = 'en'):
+    pages = await db.pages.find({}, {"_id": 0}).to_list(100)
+    if lang == 'en':
+        for page in pages:
+            add_translations(page)
+    return pages
+
+@api_router.get("/pages/{slug}")
+async def get_page(slug: str, lang: Optional[str] = 'en'):
+    page = await db.pages.find_one({"slug": slug}, {"_id": 0})
+    if not page:
+        raise HTTPException(status_code=404, detail="Page not found")
+    if lang == 'en':
+        page = add_translations(page)
+    return page
 
 # Contact Form
 @api_router.post("/contact", response_model=ContactForm)
