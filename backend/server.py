@@ -599,6 +599,31 @@ async def delete_team_member(member_id: str, payload: dict = Depends(verify_toke
         raise HTTPException(status_code=404, detail="Team member not found")
     return {"message": "Team member deleted"}
 
+# Static Pages CRUD
+@api_router.post("/admin/pages")
+async def create_page(page: StaticPage, payload: dict = Depends(verify_token)):
+    doc = page.model_dump()
+    doc = add_translations(doc)
+    await db.pages.insert_one(doc)
+    return {"message": "Page created", "id": page.id}
+
+@api_router.put("/admin/pages/{page_id}")
+async def update_page(page_id: str, page: StaticPage, payload: dict = Depends(verify_token)):
+    doc = page.model_dump()
+    doc['updated_at'] = datetime.now(timezone.utc).isoformat()
+    doc = add_translations(doc)
+    result = await db.pages.update_one({"id": page_id}, {"$set": doc})
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Page not found")
+    return {"message": "Page updated"}
+
+@api_router.delete("/admin/pages/{page_id}")
+async def delete_page(page_id: str, payload: dict = Depends(verify_token)):
+    result = await db.pages.delete_one({"id": page_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Page not found")
+    return {"message": "Page deleted"}
+
 # Include the router in the main app
 app.include_router(api_router)
 
