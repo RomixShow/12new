@@ -139,11 +139,14 @@ frontend:
     file: "/app/frontend/src/pages/Services.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Added t('services.subtitle') for subtitle translation"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Services page navigation translation works. Navigation switches correctly between 'Services' (EN) and 'Направления' (RU)."
 
   - task: "ServiceDetail page translation"
     implemented: true
@@ -151,11 +154,14 @@ frontend:
     file: "/app/frontend/src/pages/ServiceDetail.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Complete refactor to use i18n translation keys for all content"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Service detail page translation works perfectly. All sections 'What's Included', 'Work Process', 'Service Packages' translate to Russian 'Что включено', 'Процесс работы', 'Пакеты услуг'."
 
   - task: "Contact page translation"
     implemented: true
@@ -163,11 +169,14 @@ frontend:
     file: "/app/frontend/src/pages/Contact.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Refactored to use t() for all form labels and static texts"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Contact page translation works perfectly. Form labels switch correctly: 'Name *' → 'Имя *', 'Email *' → 'Email *', 'Company' → 'Компания', 'Message *' → 'Сообщение *'. Office locations translate from 'Offices' to 'Офисы'."
 
   - task: "Invest page translation"
     implemented: true
@@ -175,11 +184,14 @@ frontend:
     file: "/app/frontend/src/pages/Invest.jsx"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Added translation keys for subtitle and filters"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Invest page translation works. Page title switches from 'Investments' (EN) to 'Инвестпроекты' (RU)."
 
   - task: "Partners page translation"
     implemented: true
@@ -187,11 +199,14 @@ frontend:
     file: "/app/frontend/src/pages/Partners.jsx"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Added t('partners.subtitle') for subtitle"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Partners page translation works. Page title switches from 'Partners' (EN) to 'Партнеры' (RU)."
 
   - task: "Events page translation"
     implemented: true
@@ -199,11 +214,14 @@ frontend:
     file: "/app/frontend/src/pages/Events.jsx"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Added t('events.subtitle') for subtitle"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Events page translation works. Page title switches from 'Events' (EN) to 'Мероприятия' (RU)."
 
   - task: "Cases page translation"
     implemented: true
@@ -211,11 +229,14 @@ frontend:
     file: "/app/frontend/src/pages/Cases.jsx"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Added t('cases.subtitle') for subtitle"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Cases page translation works. Page title switches from 'Cases' (EN) to 'Кейсы' (RU)."
 
   - task: "Insights page translation"
     implemented: true
@@ -223,11 +244,14 @@ frontend:
     file: "/app/frontend/src/pages/Insights.jsx"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Added t('insights.subtitle') for subtitle"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Insights page translation works. Page title switches from 'Insights' (EN) to 'Инсайты' (RU)."
 
   - task: "Mobile header fix - round background"
     implemented: true
@@ -235,11 +259,14 @@ frontend:
     file: "/app/frontend/src/components/Header.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Changed rounded-full to rounded-2xl lg:rounded-full for mobile"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Mobile header styling is correct. Header uses 'rounded-2xl lg:rounded-full' classes - rounded corners on mobile (not pill-shaped) and fully rounded on desktop. Mobile menu toggle and navigation work perfectly."
 
 metadata:
   created_by: "main_agent"
