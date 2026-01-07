@@ -40,10 +40,7 @@ export default function Events() {
             {t('nav.events')}
           </h1>
           <p className="text-xl text-white/70 mb-12 max-w-3xl">
-            {i18n.language === 'en'
-              ? 'Exhibitions, forums and business tours in China'
-              : 'Выставки, форумы и бизнес-туры в Китае'
-            }
+            {t('events.subtitle')}
           </p>
         </motion.div>
 

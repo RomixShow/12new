@@ -40,10 +40,7 @@ export default function Cases() {
             {t('nav.cases')}
           </h1>
           <p className="text-xl text-white/70 mb-12 max-w-3xl">
-            {i18n.language === 'en' 
-              ? 'Completed projects and success stories of our clients'
-              : 'Реализованные проекты и истории успеха наших клиентов'
-            }
+            {t('cases.subtitle')}
           </p>
         </motion.div>
 

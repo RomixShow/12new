@@ -39,10 +39,7 @@ export default function Partners() {
             {t('nav.partners')}
           </h1>
           <p className="text-xl text-white/70 mb-12 max-w-3xl">
-            {i18n.language === 'en'
-              ? 'Verified manufacturers and distributors from China and other countries'
-              : 'Проверенные производители и дистрибьюторы из Китая и других стран'
-            }
+            {t('partners.subtitle')}
           </p>
         </motion.div>
 

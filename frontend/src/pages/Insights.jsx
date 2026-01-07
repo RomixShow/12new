@@ -40,10 +40,7 @@ export default function Insights() {
             {t('nav.insights')}
           </h1>
           <p className="text-xl text-white/70 mb-12 max-w-3xl">
-            {i18n.language === 'en'
-              ? 'Articles on Chinese market, investments and international trade'
-              : 'Статьи о китайском рынке, инвестициях и международной торговле'
-            }
+            {t('insights.subtitle')}
           </p>
         </motion.div>
 
