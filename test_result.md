@@ -209,9 +209,5 @@ test_plan:
   test_priority: "high_first"
 
 agent_communication:
-  - agent: "main"
-    message: "Completed translation fixes for all major pages. Updated localization JSON files with new keys for About, Contact, ServiceDetail, Invest, Partners, Events, Cases, Insights pages. Fixed mobile header from round to rectangular shape. Screenshots verified: EN/RU switching works correctly on About, Contact, Services, ServiceDetail pages. Ready for comprehensive frontend testing."
-  - agent: "main"
-    message: "Added Static Pages functionality: Privacy, Terms, NDA, Download pages now load content from database with auto-translation (deep-translator). Added 'Страницы' tab to admin panel for editing these pages. API endpoints: GET /api/pages, GET /api/pages/{slug}, POST/PUT/DELETE /admin/pages. Initialized database with content for all 4 pages."
   - agent: "testing"
-    message: "✅ COMPREHENSIVE TESTING COMPLETED: All static pages functionality working perfectly. Privacy/Terms/NDA/Download pages load content from database with proper EN/RU translation. Admin panel Pages tab fully functional with edit forms. Footer legal links work. Mobile header styling correct (rounded-2xl lg:rounded-full). All 7 test requirements passed successfully."
+    message: "Starting comprehensive testing of AICHIN GROUP admin panel user management features. Will test: 1) Login page (no default credentials hint, login with admin/admin123), 2) Admin header display, 3) Password change modal, 4) Users tab for superadmin, 5) Create new user, 6) Delete user functionality."
