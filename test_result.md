@@ -118,155 +118,77 @@ backend:
         comment: "API endpoints already support lang parameter for localization"
 
 frontend:
-  - task: "About page translation"
+  - task: "Login page functionality"
     implemented: true
-    working: true
-    file: "/app/frontend/src/pages/About.jsx"
+    working: "NA"
+    file: "/app/frontend/src/pages/Login.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
-        agent: "main"
-        comment: "Refactored to use t() function from i18n for all static texts"
-      - working: true
+      - working: "NA"
         agent: "testing"
-        comment: "✅ VERIFIED: About page translation works perfectly. Title switches from 'ABOUT US' (EN) to 'О КОМПАНИИ' (RU). All sections including Values, Geography, and Team are properly translated."
+        comment: "Need to test login page - verify no default credentials hint shown, test login with admin/admin123"
 
-  - task: "Services page translation"
+  - task: "Admin panel header display"
     implemented: true
-    working: true
-    file: "/app/frontend/src/pages/Services.jsx"
+    working: "NA"
+    file: "/app/frontend/src/pages/Admin.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
-        agent: "main"
-        comment: "Added t('services.subtitle') for subtitle translation"
-      - working: true
+      - working: "NA"
         agent: "testing"
-        comment: "✅ VERIFIED: Services page navigation translation works. Navigation switches correctly between 'Services' (EN) and 'Направления' (RU)."
+        comment: "Need to test admin header shows 'admin (Суперадмин)', 'Сменить пароль' and 'Выйти' buttons"
 
-  - task: "ServiceDetail page translation"
+  - task: "Password change modal"
     implemented: true
-    working: true
-    file: "/app/frontend/src/pages/ServiceDetail.jsx"
+    working: "NA"
+    file: "/app/frontend/src/pages/Admin.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
-        agent: "main"
-        comment: "Complete refactor to use i18n translation keys for all content"
-      - working: true
+      - working: "NA"
         agent: "testing"
-        comment: "✅ VERIFIED: Service detail page translation works perfectly. All sections 'What's Included', 'Work Process', 'Service Packages' translate to Russian 'Что включено', 'Процесс работы', 'Пакеты услуг'."
+        comment: "Need to test password change modal with fields: Текущий пароль, Новый пароль, Подтвердите новый пароль, and Отмена/Сохранить buttons"
 
-  - task: "Contact page translation"
+  - task: "Users tab for superadmin"
     implemented: true
-    working: true
-    file: "/app/frontend/src/pages/Contact.jsx"
+    working: "NA"
+    file: "/app/frontend/src/pages/Admin.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
-        agent: "main"
-        comment: "Refactored to use t() for all form labels and static texts"
-      - working: true
+      - working: "NA"
         agent: "testing"
-        comment: "✅ VERIFIED: Contact page translation works perfectly. Form labels switch correctly: 'Name *' → 'Имя *', 'Email *' → 'Email *', 'Company' → 'Компания', 'Message *' → 'Сообщение *'. Office locations translate from 'Offices' to 'Офисы'."
+        comment: "Need to test Users tab visibility for superadmin, user management interface with create user form and user list"
 
-  - task: "Invest page translation"
+  - task: "Create new user functionality"
     implemented: true
-    working: true
-    file: "/app/frontend/src/pages/Invest.jsx"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Added translation keys for subtitle and filters"
-      - working: true
-        agent: "testing"
-        comment: "✅ VERIFIED: Invest page translation works. Page title switches from 'Investments' (EN) to 'Инвестпроекты' (RU)."
-
-  - task: "Partners page translation"
-    implemented: true
-    working: true
-    file: "/app/frontend/src/pages/Partners.jsx"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Added t('partners.subtitle') for subtitle"
-      - working: true
-        agent: "testing"
-        comment: "✅ VERIFIED: Partners page translation works. Page title switches from 'Partners' (EN) to 'Партнеры' (RU)."
-
-  - task: "Events page translation"
-    implemented: true
-    working: true
-    file: "/app/frontend/src/pages/Events.jsx"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Added t('events.subtitle') for subtitle"
-      - working: true
-        agent: "testing"
-        comment: "✅ VERIFIED: Events page translation works. Page title switches from 'Events' (EN) to 'Мероприятия' (RU)."
-
-  - task: "Cases page translation"
-    implemented: true
-    working: true
-    file: "/app/frontend/src/pages/Cases.jsx"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Added t('cases.subtitle') for subtitle"
-      - working: true
-        agent: "testing"
-        comment: "✅ VERIFIED: Cases page translation works. Page title switches from 'Cases' (EN) to 'Кейсы' (RU)."
-
-  - task: "Insights page translation"
-    implemented: true
-    working: true
-    file: "/app/frontend/src/pages/Insights.jsx"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Added t('insights.subtitle') for subtitle"
-      - working: true
-        agent: "testing"
-        comment: "✅ VERIFIED: Insights page translation works. Page title switches from 'Insights' (EN) to 'Инсайты' (RU)."
-
-  - task: "Mobile header fix - round background"
-    implemented: true
-    working: true
-    file: "/app/frontend/src/components/Header.jsx"
+    working: "NA"
+    file: "/app/frontend/src/pages/Admin.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
-        agent: "main"
-        comment: "Changed rounded-full to rounded-2xl lg:rounded-full for mobile"
-      - working: true
+      - working: "NA"
         agent: "testing"
-        comment: "✅ VERIFIED: Mobile header styling is correct. Header uses 'rounded-2xl lg:rounded-full' classes - rounded corners on mobile (not pill-shaped) and fully rounded on desktop. Mobile menu toggle and navigation work perfectly."
+        comment: "Need to test creating new user with Логин, Пароль, Role fields and verify user appears in list"
+
+  - task: "Delete user functionality"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/Admin.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Need to test deleting user and verify user is removed from list"
 
 metadata:
   created_by: "main_agent"
