@@ -31,7 +31,7 @@ function App() {
       <SmoothScroll>
         <BrowserRouter>
           <Header />
-          <div className=\"noise\" />
+          <div className="noise" />
           <Routes>
             <Route path=\"/\" element={<Home />} />
             <Route path=\"/about\" element={<About />} />
