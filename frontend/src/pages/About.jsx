@@ -8,7 +8,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function About() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [team, setTeam] = useState([]);
 
   useEffect(() => {
@@ -24,10 +24,34 @@ export default function About() {
   }, []);
 
   const values = [
-    { icon: Target, title: 'Innovation', desc: 'Постоянное развитие и внедрение передовых решений' },
-    { icon: Shield, title: 'Trust', desc: 'Прозрачность, комплаенс и проверенные партнеры' },
-    { icon: Users, title: 'Scale', desc: 'Глобальная сеть и масштабируемые процессы' },
-    { icon: MapPin, title: 'Precision', desc: 'Точность в деталях и контроль на каждом этапе' },
+    { 
+      icon: Target, 
+      title: i18n.language === 'en' ? 'Innovation' : 'Innovation',
+      desc: i18n.language === 'en' 
+        ? 'Continuous development and implementation of advanced solutions'
+        : 'Постоянное развитие и внедрение передовых решений'
+    },
+    { 
+      icon: Shield, 
+      title: i18n.language === 'en' ? 'Trust' : 'Trust',
+      desc: i18n.language === 'en'
+        ? 'Transparency, compliance and verified partners'
+        : 'Прозрачность, комплаенс и проверенные партнеры'
+    },
+    { 
+      icon: Users, 
+      title: i18n.language === 'en' ? 'Scale' : 'Scale',
+      desc: i18n.language === 'en'
+        ? 'Global network and scalable processes'
+        : 'Глобальная сеть и масштабируемые процессы'
+    },
+    { 
+      icon: MapPin, 
+      title: i18n.language === 'en' ? 'Precision' : 'Precision',
+      desc: i18n.language === 'en'
+        ? 'Attention to detail and control at every stage'
+        : 'Точность в деталях и контроль на каждом этапе'
+    },
   ];
 
   return (
@@ -40,16 +64,24 @@ export default function About() {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-6xl md:text-8xl font-black font-heading text-white mb-8 tracking-tighter uppercase">
-            О КОМПАНИИ
+            {i18n.language === 'en' ? 'ABOUT US' : 'О КОМПАНИИ'}
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-3xl font-bold text-white mb-6">Мы - мост между Китаем и миром</h2>
+              <h2 className="text-3xl font-bold text-white mb-6">
+                {i18n.language === 'en' 
+                  ? 'We are a bridge between China and the world'
+                  : 'Мы - мост между Китаем и миром'}
+              </h2>
               <p className="text-lg text-white/70 mb-6 leading-relaxed">
-                AICHIN GROUP объединяет экспертизу в международной торговле, логистике, инвестициях и корпоративных мероприятиях. Мы помогаем компаниям из разных стран эффективно работать с Китаем.
+                {i18n.language === 'en'
+                  ? 'AICHIN GROUP combines expertise in international trade, logistics, investments and corporate events. We help companies from different countries work effectively with China.'
+                  : 'AICHIN GROUP объединяет экспертизу в международной торговле, логистике, инвестициях и корпоративных мероприятиях. Мы помогаем компаниям из разных стран эффективно работать с Китаем.'}
               </p>
               <p className="text-lg text-white/70 leading-relaxed">
-                Наша миссия - создавать надежные партнерства и открывать новые возможности для бизнеса через глубокое понимание китайского рынка и международных стандартов.
+                {i18n.language === 'en'
+                  ? 'Our mission is to create reliable partnerships and open up new business opportunities through a deep understanding of the Chinese market and international standards.'
+                  : 'Наша миссия - создавать надежные партнерства и открывать новые возможности для бизнеса через глубокое понимание китайского рынка и международных стандартов.'}
               </p>
             </div>
             <div className="relative h-96 rounded-3xl overflow-hidden">
@@ -68,7 +100,7 @@ export default function About() {
       <section className="py-24 bg-[#0A0A0A]" data-testid="values-section">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <h2 className="text-4xl md:text-6xl font-bold font-heading text-white mb-16 tracking-tight">
-            Наши ценности
+            {i18n.language === 'en' ? 'Our Values' : 'Наши ценности'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, idx) => (
@@ -92,24 +124,36 @@ export default function About() {
       {/* Geography */}
       <section className="py-24 max-w-7xl mx-auto px-4 md:px-8" data-testid="geography-section">
         <h2 className="text-4xl md:text-6xl font-bold font-heading text-white mb-16 tracking-tight">
-          География присутствия
+          {i18n.language === 'en' ? 'Global Presence' : 'География присутствия'}
         </h2>
         <div className="glass rounded-3xl p-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
               <MapPin className="w-12 h-12 text-[#E11D2E] mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-2">Китай</h3>
-              <p className="text-white/60">Шанхай, Гуанчжоу, Шэньчжэнь</p>
+              <h3 className="text-2xl font-bold text-white mb-2">
+                {i18n.language === 'en' ? 'China' : 'Китай'}
+              </h3>
+              <p className="text-white/60">
+                {i18n.language === 'en' ? 'Shanghai, Guangzhou, Shenzhen' : 'Шанхай, Гуанчжоу, Шэньчжэнь'}
+              </p>
             </div>
             <div>
               <MapPin className="w-12 h-12 text-[#E11D2E] mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-2">Россия</h3>
-              <p className="text-white/60">Москва, Санкт-Петербург</p>
+              <h3 className="text-2xl font-bold text-white mb-2">
+                {i18n.language === 'en' ? 'Russia' : 'Россия'}
+              </h3>
+              <p className="text-white/60">
+                {i18n.language === 'en' ? 'Moscow, Saint Petersburg' : 'Москва, Санкт-Петербург'}
+              </p>
             </div>
             <div>
               <MapPin className="w-12 h-12 text-[#E11D2E] mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-2">ОАЭ</h3>
-              <p className="text-white/60">Дубай</p>
+              <h3 className="text-2xl font-bold text-white mb-2">
+                {i18n.language === 'en' ? 'UAE' : 'ОАЭ'}
+              </h3>
+              <p className="text-white/60">
+                {i18n.language === 'en' ? 'Dubai' : 'Дубай'}
+              </p>
             </div>
           </div>
         </div>
@@ -120,7 +164,7 @@ export default function About() {
         <section className="py-24 bg-[#0A0A0A]" data-testid="team-section">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-4xl md:text-6xl font-bold font-heading text-white mb-16 tracking-tight">
-              Команда
+              {i18n.language === 'en' ? 'Team' : 'Команда'}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
               {team.map((member, idx) => (
