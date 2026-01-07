@@ -51,7 +51,24 @@ class User(BaseModel):
     id: str
     username: str
     password_hash: str
+    role: str = "admin"  # admin, superadmin
     created_at: str
+
+class CreateUserRequest(BaseModel):
+    username: str
+    password: str
+    role: str = "admin"
+
+class UpdateUserRequest(BaseModel):
+    username: Optional[str] = None
+    role: Optional[str] = None
+
+class ChangePasswordRequest(BaseModel):
+    current_password: str
+    new_password: str
+
+class AdminChangePasswordRequest(BaseModel):
+    new_password: str
 
 
 # Define Models
