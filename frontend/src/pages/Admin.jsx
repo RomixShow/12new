@@ -382,6 +382,25 @@ function EditorForm({ type, item, onChange }) {
         </div>
       </>
     ),
+    pages: (
+      <>
+        <div>
+          <Label className="text-white">Slug (URL: privacy, terms, nda, download)</Label>
+          <Input value={item.slug || ''} onChange={(e) => handleChange('slug', e.target.value)} className="bg-zinc-900/50 border-white/10 text-white" placeholder="privacy" />
+        </div>
+        <div>
+          <Label className="text-white">Заголовок (RU)</Label>
+          <Input value={item.title || ''} onChange={(e) => handleChange('title', e.target.value)} className="bg-zinc-900/50 border-white/10 text-white" />
+        </div>
+        <div>
+          <Label className="text-white">Контент (RU) - поддерживает HTML</Label>
+          <Textarea value={item.content || ''} onChange={(e) => handleChange('content', e.target.value)} className="bg-zinc-900/50 border-white/10 text-white font-mono text-sm" rows={15} />
+        </div>
+        <p className="text-white/40 text-sm">
+          * Английская версия будет создана автоматически при сохранении
+        </p>
+      </>
+    ),
   };
 
   return (
