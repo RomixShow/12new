@@ -212,77 +212,102 @@ async def get_service(slug: str, lang: Optional[str] = 'en'):
 
 # Cases
 @api_router.get("/cases", response_model=List[CaseStudy])
-async def get_cases(category: Optional[str] = None):
+async def get_cases(category: Optional[str] = None, lang: Optional[str] = 'en'):
     query = {"category": category} if category else {}
     cases = await db.cases.find(query, {"_id": 0}).to_list(100)
+    if lang == 'en':
+        for case in cases:
+            add_translations(case)
     return cases
 
 @api_router.get("/cases/{slug}", response_model=CaseStudy)
-async def get_case(slug: str):
+async def get_case(slug: str, lang: Optional[str] = 'en'):
     case = await db.cases.find_one({"slug": slug}, {"_id": 0})
     if not case:
         raise HTTPException(status_code=404, detail="Case not found")
+    if lang == 'en':
+        case = add_translations(case)
     return case
 
 # Events
 @api_router.get("/events", response_model=List[Event])
-async def get_events():
+async def get_events(lang: Optional[str] = 'en'):
     events = await db.events.find({}, {"_id": 0}).to_list(100)
+    if lang == 'en':
+        for event in events:
+            add_translations(event)
     return events
 
 @api_router.get("/events/{slug}", response_model=Event)
-async def get_event(slug: str):
+async def get_event(slug: str, lang: Optional[str] = 'en'):
     event = await db.events.find_one({"slug": slug}, {"_id": 0})
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
+    if lang == 'en':
+        event = add_translations(event)
     return event
 
 # Investment Projects
 @api_router.get("/projects", response_model=List[InvestmentProject])
-async def get_projects(stage: Optional[str] = None, industry: Optional[str] = None):
+async def get_projects(stage: Optional[str] = None, industry: Optional[str] = None, lang: Optional[str] = 'en'):
     query = {}
     if stage:
         query["stage"] = stage
     if industry:
         query["industry"] = industry
     projects = await db.projects.find(query, {"_id": 0}).to_list(100)
+    if lang == 'en':
+        for project in projects:
+            add_translations(project)
     return projects
 
 @api_router.get("/projects/{slug}", response_model=InvestmentProject)
-async def get_project(slug: str):
+async def get_project(slug: str, lang: Optional[str] = 'en'):
     project = await db.projects.find_one({"slug": slug}, {"_id": 0})
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
+    if lang == 'en':
+        project = add_translations(project)
     return project
 
 # Partners
 @api_router.get("/partners", response_model=List[Partner])
-async def get_partners(category: Optional[str] = None):
+async def get_partners(category: Optional[str] = None, lang: Optional[str] = 'en'):
     query = {}
     if category:
         query["categories"] = category
     partners = await db.partners.find(query, {"_id": 0}).to_list(100)
+    if lang == 'en':
+        for partner in partners:
+            add_translations(partner)
     return partners
 
 @api_router.get("/partners/{slug}", response_model=Partner)
-async def get_partner(slug: str):
+async def get_partner(slug: str, lang: Optional[str] = 'en'):
     partner = await db.partners.find_one({"slug": slug}, {"_id": 0})
     if not partner:
         raise HTTPException(status_code=404, detail="Partner not found")
+    if lang == 'en':
+        partner = add_translations(partner)
     return partner
 
 # Articles/Blog
 @api_router.get("/articles", response_model=List[Article])
-async def get_articles(category: Optional[str] = None):
+async def get_articles(category: Optional[str] = None, lang: Optional[str] = 'en'):
     query = {"category": category} if category else {}
     articles = await db.articles.find(query, {"_id": 0}).to_list(100)
+    if lang == 'en':
+        for article in articles:
+            add_translations(article)
     return articles
 
 @api_router.get("/articles/{slug}", response_model=Article)
-async def get_article(slug: str):
+async def get_article(slug: str, lang: Optional[str] = 'en'):
     article = await db.articles.find_one({"slug": slug}, {"_id": 0})
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")
+    if lang == 'en':
+        article = add_translations(article)
     return article
 
 # Team
