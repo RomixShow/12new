@@ -20,6 +20,7 @@ import NDA from './pages/NDA';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Download from './pages/Download';
+import Admin from './pages/Admin';
 
 function App() {
   useEffect(() => {
