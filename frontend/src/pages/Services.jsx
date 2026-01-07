@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Package, Globe, Plane, TrendingUp } from 'lucide-react';
 
 export default function Services() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const services = [
     {
@@ -45,11 +45,14 @@ export default function Services() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-6xl md:text-8xl font-black font-heading text-white mb-8 tracking-tighter uppercase">
+          <h1 className="text-5xl md:text-8xl font-black font-heading text-white mb-6 md:mb-8 tracking-tighter uppercase leading-tight">
             {t('services.title')}
           </h1>
-          <p className="text-xl text-white/70 mb-16 max-w-3xl">
-            Полный спектр услуг для работы с китайским рынком и международных партнерств
+          <p className="text-lg md:text-xl text-white/70 mb-12 md:mb-16 max-w-3xl">
+            {i18n.language === 'en'
+              ? 'Full range of services for working with the Chinese market and international partnerships'
+              : 'Полный спектр услуг для работы с китайским рынком и международных партнерств'
+            }
           </p>
         </motion.div>
 
