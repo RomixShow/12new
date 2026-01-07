@@ -77,28 +77,38 @@ export default function Admin() {
     try {
       if (isCreating) {
         editingItem.id = Date.now().toString();
-        await axios.post(`${API}/admin/${activeTab}`, editingItem);
+        await axios.post(`${API}/admin/${activeTab}`, editingItem, getAuthHeaders());
         toast.success('Создано успешно!');
       } else {
-        await axios.put(`${API}/admin/${activeTab}/${editingItem.id}`, editingItem);
+        await axios.put(`${API}/admin/${activeTab}/${editingItem.id}`, editingItem, getAuthHeaders());
         toast.success('Обновлено успешно!');
       }
       fetchData();
     } catch (error) {
       console.error('Error saving:', error);
-      toast.error('Ошибка сохранения');
+      if (error.response?.status === 401) {
+        toast.error('Session expired. Please login again');
+        handleLogout();
+      } else {
+        toast.error('Ошибка сохранения');
+      }
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm('Удалить этот элемент?')) return;
     try {
-      await axios.delete(`${API}/admin/${activeTab}/${id}`);
+      await axios.delete(`${API}/admin/${activeTab}/${id}`, getAuthHeaders());
       toast.success('Удалено успешно!');
       fetchData();
     } catch (error) {
       console.error('Error deleting:', error);
-      toast.error('Ошибка удаления');
+      if (error.response?.status === 401) {
+        toast.error('Session expired. Please login again');
+        handleLogout();
+      } else {
+        toast.error('Ошибка удаления');
+      }
     }
   };
 
