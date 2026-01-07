@@ -243,29 +243,111 @@ async def login(login_data: LoginRequest):
     if not user or not verify_password(login_data.password, user["password_hash"]):
         raise HTTPException(status_code=401, detail="Invalid username or password")
     
-    access_token = create_access_token({"sub": user["username"], "user_id": user["id"]})
+    role = user.get("role", "admin")
+    access_token = create_access_token({"sub": user["username"], "user_id": user["id"], "role": role})
     return TokenResponse(access_token=access_token)
 
 @api_router.post("/auth/verify")
 async def verify_auth(payload: dict = Depends(verify_token)):
     """Verify token is valid"""
-    return {"valid": True, "username": payload.get("sub")}
+    return {"valid": True, "username": payload.get("sub"), "role": payload.get("role", "admin")}
 
-@api_router.post("/auth/create-user")
-async def create_user(username: str, password: str):
-    """Create new admin user - REMOVE THIS IN PRODUCTION or add protection"""
-    existing = await db.users.find_one({"username": username})
+@api_router.post("/auth/change-password")
+async def change_password(data: ChangePasswordRequest, payload: dict = Depends(verify_token)):
+    """Change own password"""
+    user = await db.users.find_one({"id": payload["user_id"]}, {"_id": 0})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if not verify_password(data.current_password, user["password_hash"]):
+        raise HTTPException(status_code=400, detail="Current password is incorrect")
+    
+    new_hash = hash_password(data.new_password)
+    await db.users.update_one({"id": payload["user_id"]}, {"$set": {"password_hash": new_hash}})
+    return {"message": "Password changed successfully"}
+
+# Admin user management
+@api_router.get("/admin/users")
+async def get_users(payload: dict = Depends(verify_token)):
+    """Get all admin users (superadmin only)"""
+    if payload.get("role") != "superadmin":
+        raise HTTPException(status_code=403, detail="Access denied. Superadmin only.")
+    
+    users = await db.users.find({}, {"_id": 0, "password_hash": 0}).to_list(100)
+    return users
+
+@api_router.post("/admin/users")
+async def create_admin_user(data: CreateUserRequest, payload: dict = Depends(verify_token)):
+    """Create new admin user (superadmin only)"""
+    if payload.get("role") != "superadmin":
+        raise HTTPException(status_code=403, detail="Access denied. Superadmin only.")
+    
+    existing = await db.users.find_one({"username": data.username})
     if existing:
         raise HTTPException(status_code=400, detail="User already exists")
     
     user = {
         "id": str(uuid.uuid4()),
-        "username": username,
-        "password_hash": hash_password(password),
+        "username": data.username,
+        "password_hash": hash_password(data.password),
+        "role": data.role,
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     await db.users.insert_one(user)
-    return {"message": "User created", "username": username}
+    return {"message": "User created", "id": user["id"], "username": data.username}
+
+@api_router.put("/admin/users/{user_id}")
+async def update_admin_user(user_id: str, data: UpdateUserRequest, payload: dict = Depends(verify_token)):
+    """Update admin user (superadmin only)"""
+    if payload.get("role") != "superadmin":
+        raise HTTPException(status_code=403, detail="Access denied. Superadmin only.")
+    
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    update_data = {}
+    if data.username:
+        # Check if new username already exists
+        existing = await db.users.find_one({"username": data.username, "id": {"$ne": user_id}})
+        if existing:
+            raise HTTPException(status_code=400, detail="Username already taken")
+        update_data["username"] = data.username
+    if data.role:
+        update_data["role"] = data.role
+    
+    if update_data:
+        await db.users.update_one({"id": user_id}, {"$set": update_data})
+    return {"message": "User updated"}
+
+@api_router.put("/admin/users/{user_id}/password")
+async def reset_user_password(user_id: str, data: AdminChangePasswordRequest, payload: dict = Depends(verify_token)):
+    """Reset user password (superadmin only)"""
+    if payload.get("role") != "superadmin":
+        raise HTTPException(status_code=403, detail="Access denied. Superadmin only.")
+    
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    new_hash = hash_password(data.new_password)
+    await db.users.update_one({"id": user_id}, {"$set": {"password_hash": new_hash}})
+    return {"message": "Password reset successfully"}
+
+@api_router.delete("/admin/users/{user_id}")
+async def delete_admin_user(user_id: str, payload: dict = Depends(verify_token)):
+    """Delete admin user (superadmin only)"""
+    if payload.get("role") != "superadmin":
+        raise HTTPException(status_code=403, detail="Access denied. Superadmin only.")
+    
+    # Prevent deleting self
+    if payload["user_id"] == user_id:
+        raise HTTPException(status_code=400, detail="Cannot delete yourself")
+    
+    result = await db.users.delete_one({"id": user_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"message": "User deleted"}
 
 # Translation utility
 def auto_translate(text: str, source_lang: str = 'ru', target_lang: str = 'en') -> str:
