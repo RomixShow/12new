@@ -9,7 +9,7 @@ const resources = {
 };
 
 const userLang = navigator.language || navigator.userLanguage;
-const defaultLang = userLang.startsWith('ru') ? 'ru' : 'en';
+const defaultLang = 'en'; // Default to English
 
 i18n
   .use(initReactI18next)
