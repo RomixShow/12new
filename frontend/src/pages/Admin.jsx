@@ -269,7 +269,7 @@ function EditorForm({ type, item, onChange }) {
 
   const commonFields = (
     <>
-      {type !== 'team' && (
+      {type !== 'team' && type !== 'pages' && (
         <div>
           <Label className="text-white">Slug (URL)</Label>
           <Input
@@ -280,32 +280,36 @@ function EditorForm({ type, item, onChange }) {
           />
         </div>
       )}
-      <div>
-        <Label className="text-white">{type === 'team' ? 'Имя' : 'Название'}</Label>
-        <Input
-          value={item.name || item.title || ''}
-          onChange={(e) => handleChange(type === 'cases' || type === 'events' || type === 'articles' ? 'title' : 'name', e.target.value)}
-          className="bg-zinc-900/50 border-white/10 text-white"
-        />
-      </div>
-      <div>
-        <Label className="text-white">Описание</Label>
-        <Textarea
-          value={item.description || item.excerpt || ''}
-          onChange={(e) => handleChange(type === 'articles' ? 'excerpt' : 'description', e.target.value)}
-          className="bg-zinc-900/50 border-white/10 text-white"
-          rows={3}
-        />
-      </div>
-      <div>
-        <Label className="text-white">URL изображения</Label>
-        <Input
-          value={item.image_url || item.logo_url || ''}
-          onChange={(e) => handleChange(type === 'partners' ? 'logo_url' : 'image_url', e.target.value)}
-          className="bg-zinc-900/50 border-white/10 text-white"
-          placeholder="https://example.com/image.jpg"
-        />
-      </div>
+      {type !== 'pages' && (
+        <>
+          <div>
+            <Label className="text-white">{type === 'team' ? 'Имя' : 'Название'}</Label>
+            <Input
+              value={item.name || item.title || ''}
+              onChange={(e) => handleChange(type === 'cases' || type === 'events' || type === 'articles' ? 'title' : 'name', e.target.value)}
+              className="bg-zinc-900/50 border-white/10 text-white"
+            />
+          </div>
+          <div>
+            <Label className="text-white">Описание</Label>
+            <Textarea
+              value={item.description || item.excerpt || ''}
+              onChange={(e) => handleChange(type === 'articles' ? 'excerpt' : 'description', e.target.value)}
+              className="bg-zinc-900/50 border-white/10 text-white"
+              rows={3}
+            />
+          </div>
+          <div>
+            <Label className="text-white">URL изображения</Label>
+            <Input
+              value={item.image_url || item.logo_url || ''}
+              onChange={(e) => handleChange(type === 'partners' ? 'logo_url' : 'image_url', e.target.value)}
+              className="bg-zinc-900/50 border-white/10 text-white"
+              placeholder="https://example.com/image.jpg"
+            />
+          </div>
+        </>
+      )}
     </>
   );
 
