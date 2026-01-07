@@ -8,12 +8,14 @@ import CountUp from 'react-countup';
 import Marquee from 'react-fast-marquee';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useLocalizedField } from '../hooks/useLocalizedField';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function Home() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { getField } = useLocalizedField();
   const [cases, setCases] = useState([]);
   const [events, setEvents] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -22,11 +24,12 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const lang = i18n.language;
         const [casesRes, eventsRes, projectsRes, partnersRes] = await Promise.all([
-          axios.get(`${API}/cases`),
-          axios.get(`${API}/events`),
-          axios.get(`${API}/projects`),
-          axios.get(`${API}/partners`),
+          axios.get(`${API}/cases?lang=${lang}`),
+          axios.get(`${API}/events?lang=${lang}`),
+          axios.get(`${API}/projects?lang=${lang}`),
+          axios.get(`${API}/partners?lang=${lang}`),
         ]);
         setCases(casesRes.data.slice(0, 6));
         setEvents(eventsRes.data.slice(0, 3));
@@ -37,7 +40,7 @@ export default function Home() {
       }
     };
     fetchData();
-  }, []);
+  }, [i18n.language]);
 
   const services = [
     {
