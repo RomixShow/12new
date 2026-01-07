@@ -276,11 +276,9 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Language switching on all pages"
-    - "Mobile header shape"
-    - "Contact form localization"
+    - "Static pages functionality complete"
   stuck_tasks: []
-  test_all: true
+  test_all: false
   test_priority: "high_first"
 
   - task: "Privacy page functionality"
