@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Label } from '../components/ui/label';
-import { Plus, Edit, Trash2, Save } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, LogOut } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
 
@@ -13,10 +14,27 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function Admin() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('services');
   const [data, setData] = useState([]);
   const [editingItem, setEditingItem] = useState(null);
   const [isCreating, setIsCreating] = useState(false);
+
+  // Get auth headers
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem('admin_token');
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('admin_token');
+    navigate('/login');
+    toast.success('Logged out successfully');
+  };
 
   const tabs = [
     { value: 'services', label: 'Услуги', endpoint: '/services' },
