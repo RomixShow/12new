@@ -148,10 +148,23 @@ class TeamMember(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str
     name: str
+    name_en: Optional[str] = None
     position: str
+    position_en: Optional[str] = None
     bio: str
+    bio_en: Optional[str] = None
     image_url: str
     linkedin: Optional[str] = None
+
+class StaticPage(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    slug: str  # privacy, terms, nda, download
+    title: str
+    title_en: Optional[str] = None
+    content: str  # HTML or markdown content
+    content_en: Optional[str] = None
+    updated_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class ContactFormData(BaseModel):
     name: str
