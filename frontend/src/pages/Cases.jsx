@@ -9,30 +9,41 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function Cases() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [cases, setCases] = useState([]);
 
   useEffect(() => {
     const fetchCases = async () => {
       try {
-        const response = await axios.get(`${API}/cases`);
+        const lang = i18n.language;
+        const response = await axios.get(`${API}/cases?lang=${lang}`);
         setCases(response.data);
       } catch (error) {
         console.error('Error fetching cases:', error);
       }
     };
     fetchCases();
-  }, []);
+  }, [i18n.language]);
+
+  const getLocalizedField = (item, field) => {
+    if (i18n.language === 'en' && item[`${field}_en`]) {
+      return item[`${field}_en`];
+    }
+    return item[field];
+  };
 
   return (
     <div className="min-h-screen pt-32" data-testid="cases-page">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-6xl md:text-8xl font-black font-heading text-white mb-8 tracking-tighter uppercase">
-            Кейсы
+            {t('nav.cases')}
           </h1>
           <p className="text-xl text-white/70 mb-12 max-w-3xl">
-            Реализованные проекты и истории успеха наших клиентов
+            {i18n.language === 'en' 
+              ? 'Completed projects and success stories of our clients'
+              : 'Реализованные проекты и истории успеха наших клиентов'
+            }
           </p>
         </motion.div>
 
@@ -52,14 +63,16 @@ export default function Cases() {
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
                   <div className="relative h-64 md:h-auto">
-                    <img src={caseItem.image_url} alt={caseItem.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={caseItem.image_url} alt={getLocalizedField(caseItem, 'title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="p-8 flex flex-col justify-center">
                     <div className="text-sm text-[#E11D2E] font-mono mb-2">{caseItem.category.toUpperCase()}</div>
-                    <h3 className="text-3xl font-bold text-white mb-3 group-hover:text-[#E11D2E] transition-colors">{caseItem.title}</h3>
-                    <p className="text-white/60 mb-4">{caseItem.description}</p>
+                    <h3 className="text-3xl font-bold text-white mb-3 group-hover:text-[#E11D2E] transition-colors">
+                      {getLocalizedField(caseItem, 'title')}
+                    </h3>
+                    <p className="text-white/60 mb-4">{getLocalizedField(caseItem, 'description')}</p>
                     <div className="flex items-center text-[#E11D2E] font-medium group-hover:translate-x-2 transition-transform">
-                      Подробнее
+                      {t('common.learn_more')}
                       <ArrowRight className="ml-2 w-5 h-5" />
                     </div>
                   </div>
