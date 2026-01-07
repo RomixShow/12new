@@ -2,7 +2,7 @@
 
 ## Доступ к админ-панели
 
-Перейдите по адресу: **https://aichin-network.preview.emergentagent.com/admin**
+Перейдите по адресу: **https://rusintl-hub.preview.emergentagent.com/admin**
 
 ## Что можно редактировать
 

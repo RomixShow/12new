@@ -4,7 +4,7 @@ from datetime import datetime
 import json
 
 class AichinAPITester:
-    def __init__(self, base_url="https://aichin-network.preview.emergentagent.com"):
+    def __init__(self, base_url="https://rusintl-hub.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.tests_run = 0

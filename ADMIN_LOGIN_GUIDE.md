@@ -2,7 +2,7 @@
 
 ## Доступ к админке
 
-**URL:** https://aichin-network.preview.emergentagent.com/admin
+**URL:** https://rusintl-hub.preview.emergentagent.com/admin
 
 ⚠️ **Теперь админка защищена паролем!**
 
@@ -15,7 +15,7 @@ Password: admin123
 
 ## Как войти:
 
-1. Откройте https://aichin-network.preview.emergentagent.com/login
+1. Откройте https://rusintl-hub.preview.emergentagent.com/login
 2. Введите username: **admin**
 3. Введите password: **admin123**
 4. Нажмите кнопку "Login"
@@ -39,7 +39,7 @@ Password: admin123
 cd /app/backend
 
 # Создайте нового пользователя
-curl -X POST "https://aichin-network.preview.emergentagent.com/api/auth/create-user" \
+curl -X POST "https://rusintl-hub.preview.emergentagent.com/api/auth/create-user" \
   -H "Content-Type: application/json" \
   -d '{"username": "your_username", "password": "your_secure_password"}'
 ```
