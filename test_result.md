@@ -216,12 +216,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Login page functionality"
-    - "Admin panel header display"
-    - "Password change modal"
-    - "Users tab for superadmin"
-    - "Create new user functionality"
-    - "Delete user functionality"
+    - "All admin panel user management features tested successfully"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
