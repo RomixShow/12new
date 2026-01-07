@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Package, Globe, Plane, TrendingUp } from 'lucide-react';
 
 export default function Services() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const services = [
     {
@@ -45,18 +45,15 @@ export default function Services() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-5xl md:text-8xl font-black font-heading text-white mb-6 md:mb-8 tracking-tighter uppercase leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black font-heading text-white mb-6 md:mb-8 tracking-tighter uppercase leading-tight">
             {t('services.title')}
           </h1>
-          <p className="text-lg md:text-xl text-white/70 mb-12 md:mb-16 max-w-3xl">
-            {i18n.language === 'en'
-              ? 'Full range of services for working with the Chinese market and international partnerships'
-              : 'Полный спектр услуг для работы с китайским рынком и международных партнерств'
-            }
+          <p className="text-base md:text-lg lg:text-xl text-white/70 mb-12 md:mb-16 max-w-3xl">
+            {t('services.subtitle')}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 pb-24">
           {services.map((service, idx) => (
             <motion.div
               key={idx}
@@ -67,7 +64,7 @@ export default function Services() {
             >
               <Link
                 to={`/services/${service.slug}`}
-                className="group relative block h-[500px] rounded-3xl overflow-hidden"
+                className="group relative block h-[350px] md:h-[450px] lg:h-[500px] rounded-3xl overflow-hidden"
                 data-testid={`service-card-${service.slug}`}
               >
                 <img
@@ -76,10 +73,10 @@ export default function Services() {
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
-                <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                  <service.icon className="w-16 h-16 text-[#E11D2E] mb-6" />
-                  <h2 className="text-3xl md:text-4xl font-bold font-heading text-white mb-4">{service.name}</h2>
-                  <p className="text-lg text-white/80 mb-6">{service.desc}</p>
+                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
+                  <service.icon className="w-12 h-12 md:w-16 md:h-16 text-[#E11D2E] mb-4 md:mb-6" />
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-heading text-white mb-3 md:mb-4">{service.name}</h2>
+                  <p className="text-base md:text-lg text-white/80 mb-4 md:mb-6">{service.desc}</p>
                   <div className="flex items-center text-[#E11D2E] font-bold group-hover:translate-x-2 transition-transform">
                     {t('common.learn_more')}
                     <ArrowRight className="ml-2 w-5 h-5" />
