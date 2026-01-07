@@ -193,15 +193,21 @@ def add_translations(item: dict) -> dict:
 
 # Services
 @api_router.get("/services", response_model=List[Service])
-async def get_services():
+async def get_services(lang: Optional[str] = 'en'):
     services = await db.services.find({}, {"_id": 0}).to_list(100)
+    # Auto-translate if English translations don't exist
+    for service in services:
+        if lang == 'en':
+            service = add_translations(service)
     return services
 
 @api_router.get("/services/{slug}", response_model=Service)
-async def get_service(slug: str):
+async def get_service(slug: str, lang: Optional[str] = 'en'):
     service = await db.services.find_one({"slug": slug}, {"_id": 0})
     if not service:
         raise HTTPException(status_code=404, detail="Service not found")
+    if lang == 'en':
+        service = add_translations(service)
     return service
 
 # Cases
