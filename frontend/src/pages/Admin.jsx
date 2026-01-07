@@ -138,10 +138,22 @@ export default function Admin() {
     <div className="min-h-screen pt-32 pb-24" data-testid="admin-page">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-6xl font-black font-heading text-white mb-8 tracking-tighter uppercase">
-            АДМИН-ПАНЕЛЬ
-          </h1>
-          <p className="text-white/70 mb-8">Управление контентом сайта</p>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-6xl font-black font-heading text-white tracking-tighter uppercase">
+                АДМИН-ПАНЕЛЬ
+              </h1>
+              <p className="text-white/70 mt-2">Управление контентом сайта</p>
+            </div>
+            <Button
+              onClick={handleLogout}
+              className="bg-white/10 hover:bg-white/20 text-white rounded-full"
+              data-testid="logout-button"
+            >
+              <LogOut className="w-5 h-5 mr-2" />
+              Выйти
+            </Button>
+          </div>
         </motion.div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
