@@ -130,6 +130,8 @@ export default function Admin() {
         return { ...base, slug: '', title: '', excerpt: '', content: '', author: '', published_at: new Date().toISOString(), category: '' };
       case 'team':
         return { ...base, position: '', bio: '', linkedin: '' };
+      case 'pages':
+        return { id: '', slug: '', title: '', content: '', updated_at: new Date().toISOString() };
       default:
         return base;
     }
