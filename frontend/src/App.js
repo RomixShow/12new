@@ -38,6 +38,15 @@ function App() {
             <Route path=\"/services\" element={<Services />} />
             <Route path=\"/services/:slug\" element={<ServiceDetail />} />
             <Route path=\"/contact\" element={<Contact />} />
+            <Route path="/invest" element={<Invest />} />
+            <Route path="/partners" element={<Partners />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/cases" element={<Cases />} />
+            <Route path="/insights" element={<Insights />} />
+            <Route path="/nda" element={<NDA />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/download" element={<Download />} />
           </Routes>
           <Footer />
           <Toaster />
