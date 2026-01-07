@@ -29,6 +29,30 @@ app = FastAPI()
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
+# JWT settings
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "your-secret-key-change-this-in-production")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 24 hours
+
+# Security
+security = HTTPBearer()
+
+# Auth Models
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+class User(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    username: str
+    password_hash: str
+    created_at: str
+
 
 # Define Models
 class Service(BaseModel):
