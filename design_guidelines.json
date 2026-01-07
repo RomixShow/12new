@@ -1,0 +1,170 @@
+{
+  "design_system": {
+    "identity": {
+      "name": "AICHIN GROUP - The Crimson Void",
+      "tone": "Premium, Technological, Authoritative, Global",
+      "archetype": "Electric & Neon (Future, Speed, Disruption)",
+      "core_values": ["Innovation", "Trust", "Scale", "Precision"]
+    },
+    "typography": {
+      "font_family": {
+        "headings": "Unbounded, sans-serif",
+        "body": "Manrope, sans-serif",
+        "mono": "JetBrains Mono, monospace"
+      },
+      "weights": {
+        "light": 300,
+        "regular": 400,
+        "medium": 500,
+        "bold": 700,
+        "black": 900
+      },
+      "scale": {
+        "h1": "text-6xl md:text-8xl tracking-tighter font-black uppercase",
+        "h2": "text-4xl md:text-6xl tracking-tight font-bold",
+        "h3": "text-2xl md:text-3xl tracking-tight font-semibold",
+        "body_lg": "text-lg md:text-xl leading-relaxed",
+        "body_base": "text-base leading-relaxed text-muted-foreground",
+        "caption": "text-xs tracking-widest uppercase font-mono text-muted-foreground"
+      },
+      "imports": [
+        "https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Manrope:wght@300;400;500;700&family=JetBrains+Mono:wght@400&display=swap"
+      ]
+    },
+    "colors": {
+      "palette": {
+        "primary": {
+          "DEFAULT": "#E11D2E",
+          "foreground": "#FFFFFF",
+          "glow": "0 0 20px rgba(225, 29, 46, 0.5)"
+        },
+        "background": {
+          "DEFAULT": "#050505",
+          "secondary": "#0A0A0A",
+          "tertiary": "#121212"
+        },
+        "surface": {
+          "glass": "rgba(10, 10, 10, 0.6)",
+          "glass_border": "rgba(255, 255, 255, 0.08)"
+        },
+        "text": {
+          "primary": "#FFFFFF",
+          "secondary": "#A1A1AA",
+          "muted": "#52525B"
+        }
+      },
+      "gradients": {
+        "hero": "radial-gradient(circle at center, #1a0505 0%, #050505 100%)",
+        "card_hover": "linear-gradient(180deg, rgba(225, 29, 46, 0.1) 0%, rgba(0, 0, 0, 0) 100%)"
+      }
+    },
+    "layout": {
+      "container": "max-w-7xl mx-auto px-4 md:px-8",
+      "spacing": {
+        "section_py": "py-24 md:py-32",
+        "element_gap": "gap-8 md:gap-12"
+      },
+      "grids": {
+        "bento_main": "grid grid-cols-1 md:grid-cols-12 gap-6",
+        "cards_standard": "grid grid-cols-1 md:grid-cols-3 gap-8"
+      },
+      "radius": {
+        "default": "rounded-2xl",
+        "button": "rounded-full",
+        "card": "rounded-3xl"
+      }
+    },
+    "visual_enhancers": {
+      "glassmorphism": "backdrop-blur-xl bg-black/40 border border-white/10 shadow-2xl",
+      "neon_glow": "shadow-[0_0_30px_-5px_rgba(225,29,46,0.3)]",
+      "tracing_beam": "relative overflow-hidden before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-b before:from-primary/50 before:to-transparent before:content-[''] before:-z-10 before:rounded-3xl",
+      "noise_texture": "bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none fixed inset-0 z-50"
+    },
+    "motion": {
+      "library": "framer-motion",
+      "scroll": "lenis",
+      "defaults": {
+        "duration": 0.6,
+        "ease": [0.22, 1, 0.36, 1]
+      },
+      "stagger": 0.1
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-white hover:bg-primary/90 rounded-full px-8 py-6 text-lg font-bold tracking-wide shadow-[0_0_20px_rgba(225,29,46,0.4)] hover:shadow-[0_0_30px_rgba(225,29,46,0.6)] transition-all duration-300",
+      "secondary": "bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-full px-8 py-6 backdrop-blur-md transition-all duration-300",
+      "ghost": "text-white/70 hover:text-primary hover:bg-transparent transition-colors"
+    },
+    "cards": {
+      "feature": "group relative h-full bg-black/40 border border-white/10 rounded-3xl p-8 hover:border-primary/50 transition-colors duration-500 overflow-hidden",
+      "stat": "bg-zinc-900/50 border border-white/5 rounded-2xl p-6 flex flex-col items-center justify-center text-center"
+    },
+    "inputs": {
+      "default": "bg-zinc-900/50 border-white/10 focus:border-primary/50 focus:ring-primary/20 h-12 rounded-xl"
+    }
+  },
+  "assets": {
+    "images": {
+      "hero_bg": {
+        "url": "https://images.unsplash.com/photo-1748771520567-f5fe0851ca63?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "alt": "Abstract Red Waves",
+        "usage": "Hero Section Background with overlay"
+      },
+      "about_team": {
+        "url": "https://images.unsplash.com/photo-1758691736821-f1a600c0c3f1?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "alt": "Corporate Team Presentation",
+        "usage": "About Us Section"
+      },
+      "logistics": {
+        "url": "https://images.unsplash.com/photo-1761307234324-0c9eadb951de?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "alt": "Global Logistics Port",
+        "usage": "Services - Logistics Card"
+      },
+      "investment": {
+        "url": "https://images.pexels.com/photos/3076002/pexels-photo-3076002.jpeg",
+        "alt": "Modern Skyscraper Architecture",
+        "usage": "Services - Investment Card"
+      },
+      "partners_meeting": {
+        "url": "https://images.unsplash.com/photo-1670383050616-682df7d57b22?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "alt": "Business Meeting",
+        "usage": "Partners Section"
+      },
+      "tech_abstract": {
+        "url": "https://images.unsplash.com/photo-1690460232677-155f01ad61ce?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "alt": "Red Tech Lights",
+        "usage": "Technology/Innovation Section"
+      }
+    },
+    "icons": {
+      "library": "lucide-react",
+      "style": "stroke-1"
+    }
+  },
+  "libraries": {
+    "animation": ["framer-motion", "lenis"],
+    "3d": ["@react-three/fiber", "@react-three/drei", "tsparticles"],
+    "ui": ["shadcn/ui", "clsx", "tailwind-merge"],
+    "utils": ["date-fns", "react-fast-marquee", "react-countup"]
+  },
+  "instructions_to_main_agent": [
+    "1. SETUP: Install 'lenis' immediately. Wrap the entire app in a Lenis provider for smooth scrolling. This is non-negotiable for the premium feel.",
+    "2. FONTS: Add the Google Fonts import to index.css immediately. Apply 'font-sans' (Manrope) to body and 'font-heading' (Unbounded) to all h1-h6.",
+    "3. THEME: Force 'dark' class on the html element. This is a dark-mode-first site. Do not implement a light mode toggle unless explicitly asked later.",
+    "4. HERO: Build a 'tsparticles' background with red particles (#E11D2E) moving slowly in a void. Overlay a radial gradient to fade edges to black.",
+    "5. CARDS: Use the 'feature' card style defined in components. Add a hover effect where the border color transitions to primary (#E11D2E).",
+    "6. TRUST BAR: Use 'react-fast-marquee' with grayscale logos that light up (color) on hover.",
+    "7. FORMS: Use Shadcn Form components but style them with the 'inputs.default' styles defined above. No default browser outlines.",
+    "8. NAVIGATION: Create a floating glass navbar (fixed top-4 left-4 right-4 rounded-full) with a blur effect.",
+    "9. FOOTER: Massive footer. 'AICHIN' text should span the entire width (text-[15vw]) in the footer background.",
+    "10. LANGUAGE: Add a simple text toggle (RU / EN) in the navbar. Default to RU if the user browser is RU, else EN."
+  ],
+  "universal_guidelines": [
+    "Avoid generic centered layouts. Use asymmetry.",
+    "Use 2-3x more spacing than typical designs.",
+    "Every interaction needs a micro-animation.",
+    "Never use pure black (#000000) for backgrounds, use #050505.",
+    "Ensure all text has sufficient contrast against dark backgrounds."
+  ]
+}
