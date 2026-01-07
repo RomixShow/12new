@@ -45,12 +45,17 @@ class CaseStudy(BaseModel):
     id: str
     slug: str
     title: str
+    title_en: Optional[str] = None
     client: str
     category: str
     description: str
+    description_en: Optional[str] = None
     challenge: str
+    challenge_en: Optional[str] = None
     solution: str
+    solution_en: Optional[str] = None
     results: List[str]
+    results_en: Optional[List[str]] = None
     image_url: str
     created_at: str
 
@@ -59,10 +64,13 @@ class Event(BaseModel):
     id: str
     slug: str
     title: str
+    title_en: Optional[str] = None
     date: str
     location: str
+    location_en: Optional[str] = None
     type: str
     description: str
+    description_en: Optional[str] = None
     program: List[dict]
     image_url: str
 
@@ -71,7 +79,9 @@ class InvestmentProject(BaseModel):
     id: str
     slug: str
     title: str
+    title_en: Optional[str] = None
     description: str
+    description_en: Optional[str] = None
     stage: str
     industry: str
     country: str
@@ -85,7 +95,9 @@ class Partner(BaseModel):
     id: str
     slug: str
     name: str
+    name_en: Optional[str] = None
     description: str
+    description_en: Optional[str] = None
     categories: List[str]
     country: str
     logo_url: str
@@ -95,8 +107,11 @@ class Article(BaseModel):
     id: str
     slug: str
     title: str
+    title_en: Optional[str] = None
     excerpt: str
+    excerpt_en: Optional[str] = None
     content: str
+    content_en: Optional[str] = None
     author: str
     published_at: str
     image_url: str
