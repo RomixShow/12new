@@ -283,8 +283,100 @@ test_plan:
   test_all: true
   test_priority: "high_first"
 
+  - task: "Privacy page functionality"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Privacy.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created Privacy page that loads content from database with language switching"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Privacy page works perfectly. Content loads from database (not hardcoded). Language switching works: 'PRIVACY POLICY' (EN) ↔ 'ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ' (RU). Content includes proper sections with HTML formatting."
+
+  - task: "Terms page functionality"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Terms.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created Terms page that loads content from database with language switching"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Terms page works perfectly. Shows 'TERMS OF USE' (EN) and 'УСЛОВИЯ ИСПОЛЬЗОВАНИЯ' (RU). Content sections render properly with database-driven content."
+
+  - task: "NDA page functionality"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/NDA.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created NDA page with Request NDA Template button"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: NDA page loads correctly with content. 'Request NDA Template' button exists and is clickable. Page content loads from database."
+
+  - task: "Download page functionality"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Download.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created Download page with 4 material cards and download buttons"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Download page works perfectly. All 4 material cards displayed: Company Presentation, Supply Checklist, Quality Control Guide, Project Brief Template. Each has download button. Language switching works for card titles: 'Company Presentation' ↔ 'Презентация компании'."
+
+  - task: "Admin panel Pages tab"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Admin.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Added Pages tab to admin panel for editing static pages"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Admin panel Pages tab works perfectly. Login with admin/admin123 successful. 'Страницы' tab shows 4 pages. Edit form contains: Slug, Заголовок (RU), Контент (RU) fields. Auto English translation note displayed."
+
+  - task: "Footer legal links"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Footer.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Added footer links to privacy, terms, nda pages"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Footer legal links work perfectly. All links present: privacy, terms, nda. Privacy link navigation works. Footer text translates when switching language."
+
 agent_communication:
   - agent: "main"
     message: "Completed translation fixes for all major pages. Updated localization JSON files with new keys for About, Contact, ServiceDetail, Invest, Partners, Events, Cases, Insights pages. Fixed mobile header from round to rectangular shape. Screenshots verified: EN/RU switching works correctly on About, Contact, Services, ServiceDetail pages. Ready for comprehensive frontend testing."
   - agent: "main"
     message: "Added Static Pages functionality: Privacy, Terms, NDA, Download pages now load content from database with auto-translation (deep-translator). Added 'Страницы' tab to admin panel for editing these pages. API endpoints: GET /api/pages, GET /api/pages/{slug}, POST/PUT/DELETE /admin/pages. Initialized database with content for all 4 pages."
+  - agent: "testing"
+    message: "✅ COMPREHENSIVE TESTING COMPLETED: All static pages functionality working perfectly. Privacy/Terms/NDA/Download pages load content from database with proper EN/RU translation. Admin panel Pages tab fully functional with edit forms. Footer legal links work. Mobile header styling correct (rounded-2xl lg:rounded-full). All 7 test requirements passed successfully."
