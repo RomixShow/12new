@@ -19,6 +19,7 @@
   },
   "services": {
     "title": "Business Directions",
+    "subtitle": "Full range of services for working with the Chinese market and international partnerships",
     "trade": {
       "name": "Trade & Manufacturing",
       "desc": "Full-cycle sourcing and production in China"
@@ -71,5 +72,155 @@
     "download_presentation": "Download Presentation",
     "send": "Send",
     "loading": "Loading..."
+  },
+  "about": {
+    "title": "ABOUT US",
+    "headline": "We are a bridge between China and the world",
+    "description1": "AICHIN GROUP combines expertise in international trade, logistics, investments and corporate events. We help companies from different countries work effectively with China.",
+    "description2": "Our mission is to create reliable partnerships and open up new business opportunities through a deep understanding of the Chinese market and international standards.",
+    "values_title": "Our Values",
+    "geography_title": "Global Presence",
+    "team_title": "Team",
+    "values": {
+      "innovation": { "title": "Innovation", "desc": "Continuous development and implementation of advanced solutions" },
+      "trust": { "title": "Trust", "desc": "Transparency, compliance and verified partners" },
+      "scale": { "title": "Scale", "desc": "Global network and scalable processes" },
+      "precision": { "title": "Precision", "desc": "Attention to detail and control at every stage" }
+    },
+    "locations": {
+      "china": { "name": "China", "cities": "Shanghai, Guangzhou, Shenzhen" },
+      "russia": { "name": "Russia", "cities": "Moscow, Saint Petersburg" },
+      "uae": { "name": "UAE", "cities": "Dubai" }
+    }
+  },
+  "contact": {
+    "offices_title": "Offices",
+    "offices": {
+      "shanghai": "Shanghai, China",
+      "moscow": "Moscow, Russia",
+      "dubai": "Dubai, UAE"
+    },
+    "working_hours_title": "Working Hours",
+    "working_hours": "Mon-Fri: 9:00 - 18:00 (GMT+8)",
+    "response_time": "Response within 24 hours",
+    "schedule_title": "Schedule a Call",
+    "form_title": "Leave a Request",
+    "form": {
+      "name": "Name *",
+      "email": "Email *",
+      "company": "Company",
+      "phone": "Phone",
+      "service_label": "Service of Interest",
+      "service_placeholder": "Select service",
+      "message": "Message *"
+    },
+    "success": { "title": "Request sent!", "desc": "We will contact you shortly." },
+    "error": { "title": "Error", "desc": "Failed to send request. Please try again later." }
+  },
+  "service_detail": {
+    "features_title": "What's Included",
+    "process_title": "Work Process",
+    "packages_title": "Service Packages",
+    "price_on_request": "Price on request",
+    "request_quote": "Request Quote",
+    "ready_title": "Ready to Start?",
+    "ready_desc": "Contact us for a consultation and personalized offer",
+    "contact_us": "Contact Us",
+    "trade": {
+      "hero": "Full-cycle sourcing and manufacturing in China",
+      "description": "From supplier search to production organization and quality control at all stages",
+      "features": [
+        "Manufacturer search and verification",
+        "Negotiations and contract signing",
+        "Custom manufacturing organization",
+        "Factory quality control",
+        "Timeline and budget management",
+        "Certification and compliance"
+      ],
+      "process": [
+        { "step": "Requirements Analysis", "desc": "Detailed study of your needs" },
+        { "step": "Supplier Selection", "desc": "Finding 3-5 verified manufacturers" },
+        { "step": "Samples and Testing", "desc": "Ordering samples and quality check" },
+        { "step": "Production", "desc": "Production process control" },
+        { "step": "Delivery", "desc": "Logistics and customs clearance" }
+      ],
+      "packages": [
+        { "name": "Start", "desc": "For first orders", "features": ["Supplier search", "Basic verification", "Negotiations"] },
+        { "name": "Pro", "desc": "Full cycle", "features": ["All from Start", "Quality control", "Production"] },
+        { "name": "Enterprise", "desc": "Turnkey", "features": ["All from Pro", "Dedicated manager", "24/7 SLA"] }
+      ]
+    },
+    "logistics": {
+      "hero": "Logistics and quality control at all stages",
+      "description": "International logistics, warehousing, inspections and product quality control",
+      "features": [
+        "Sea and air freight",
+        "Warehouse logistics",
+        "Customs clearance",
+        "Factory inspections",
+        "Laboratory tests",
+        "Quality reports"
+      ],
+      "process": [
+        { "step": "Planning", "desc": "Route and delivery schedule" },
+        { "step": "Inspection", "desc": "Pre-shipment check" },
+        { "step": "Packaging", "desc": "Packaging and labeling control" },
+        { "step": "Shipment", "desc": "Transportation organization" },
+        { "step": "Delivery", "desc": "Door-to-door delivery" }
+      ],
+      "packages": [
+        { "name": "Start", "desc": "Basic logistics", "features": ["Sea freight", "Customs", "Tracking"] },
+        { "name": "Pro", "desc": "With inspections", "features": ["All from Start", "QC inspections", "Reports"] },
+        { "name": "Enterprise", "desc": "Full control", "features": ["All from Pro", "China warehouse", "Express"] }
+      ]
+    },
+    "travel": {
+      "hero": "Corporate travel and events organization in China",
+      "description": "Business tours, exhibitions, forums and B2B meetings with key market players",
+      "features": [
+        "Business visit organization",
+        "Exhibition participation",
+        "B2B meetings with partners",
+        "Translation and support",
+        "Cultural program",
+        "Event logistics"
+      ],
+      "process": [
+        { "step": "Planning", "desc": "Trip goals and program" },
+        { "step": "Partner Selection", "desc": "Meeting organization" },
+        { "step": "Visas and Tickets", "desc": "Documents and logistics" },
+        { "step": "Execution", "desc": "Delegation support" },
+        { "step": "Report", "desc": "Results and next steps" }
+      ],
+      "packages": [
+        { "name": "Start", "desc": "Basic tour", "features": ["3 days", "5 meetings", "Translation"] },
+        { "name": "Pro", "desc": "Extended program", "features": ["5-7 days", "10+ meetings", "Exhibition"] },
+        { "name": "Enterprise", "desc": "Custom format", "features": ["Up to 14 days", "VIP meetings", "Cultural program"] }
+      ]
+    },
+    "investments": {
+      "hero": "Investment projects and strategic partnerships",
+      "description": "Investor search, project due diligence and international partnership organization",
+      "features": [
+        "Investment project selection",
+        "Due diligence",
+        "Deal support",
+        "Strategic partner search",
+        "Investment structuring",
+        "Legal support"
+      ],
+      "process": [
+        { "step": "Analysis", "desc": "Project and market study" },
+        { "step": "Due Diligence", "desc": "Document and risk verification" },
+        { "step": "Negotiations", "desc": "Deal terms" },
+        { "step": "Structuring", "desc": "Legal formalization" },
+        { "step": "Closing", "desc": "Deal completion" }
+      ],
+      "packages": [
+        { "name": "Start", "desc": "Consulting", "features": ["Project analysis", "Partner search", "NDA"] },
+        { "name": "Pro", "desc": "Due Diligence", "features": ["All from Start", "Full verification", "Report"] },
+        { "name": "Enterprise", "desc": "Full support", "features": ["All from Pro", "Negotiations", "Deal closing"] }
+      ]
+    }
   }
 }
