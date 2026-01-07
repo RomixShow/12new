@@ -44,6 +44,7 @@ export default function Admin() {
     { value: 'partners', label: 'Партнеры', endpoint: '/partners' },
     { value: 'articles', label: 'Статьи', endpoint: '/articles' },
     { value: 'team', label: 'Команда', endpoint: '/team' },
+    { value: 'pages', label: 'Страницы', endpoint: '/pages' },
   ];
 
   useEffect(() => {
