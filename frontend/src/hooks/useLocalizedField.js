@@ -1,1 +1,25 @@
-import { useTranslation } from 'react-i18next';\n\n/**\n * Hook to get localized field from data object\n * Returns English version if current language is English, otherwise returns default field\n */\nexport function useLocalizedField() {\n  const { i18n } = useTranslation();\n  const currentLang = i18n.language;\n\n  const getField = (item, fieldName) => {\n    if (!item) return '';\n    \n    // If English, try to get _en version first\n    if (currentLang === 'en') {\n      const enField = item[`${fieldName}_en`];\n      if (enField) return enField;\n    }\n    \n    // Fallback to default field\n    return item[fieldName] || '';\n  };\n\n  return { getField, currentLang };\n}\n
+import { useTranslation } from 'react-i18next';
+
+/**
+ * Hook to get localized field from data object
+ * Returns English version if current language is English, otherwise returns default field
+ */
+export function useLocalizedField() {
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language;
+
+  const getField = (item, fieldName) => {
+    if (!item) return '';
+    
+    // If English, try to get _en version first
+    if (currentLang === 'en') {
+      const enField = item[`${fieldName}_en`];
+      if (enField) return enField;
+    }
+    
+    // Fallback to default field
+    return item[fieldName] || '';
+  };
+
+  return { getField, currentLang };
+}\n
