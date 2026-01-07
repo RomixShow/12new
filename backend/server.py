@@ -410,16 +410,16 @@ async def submit_contact_form(form_data: ContactFormData):
     await db.contact_forms.insert_one(doc)
     return contact
 
-# Admin CRUD endpoints
+# Admin CRUD endpoints (Protected)
 # Services CRUD
 @api_router.post("/admin/services")
-async def create_service(service: Service):
+async def create_service(service: Service, payload: dict = Depends(verify_token)):
     doc = service.model_dump()
     await db.services.insert_one(doc)
     return {"message": "Service created", "id": service.id}
 
 @api_router.put("/admin/services/{service_id}")
-async def update_service(service_id: str, service: Service):
+async def update_service(service_id: str, service: Service, payload: dict = Depends(verify_token)):
     doc = service.model_dump()
     result = await db.services.update_one({"id": service_id}, {"$set": doc})
     if result.modified_count == 0:
@@ -427,7 +427,7 @@ async def update_service(service_id: str, service: Service):
     return {"message": "Service updated"}
 
 @api_router.delete("/admin/services/{service_id}")
-async def delete_service(service_id: str):
+async def delete_service(service_id: str, payload: dict = Depends(verify_token)):
     result = await db.services.delete_one({"id": service_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Service not found")
@@ -435,13 +435,13 @@ async def delete_service(service_id: str):
 
 # Cases CRUD
 @api_router.post("/admin/cases")
-async def create_case(case: CaseStudy):
+async def create_case(case: CaseStudy, payload: dict = Depends(verify_token)):
     doc = case.model_dump()
     await db.cases.insert_one(doc)
     return {"message": "Case created", "id": case.id}
 
 @api_router.put("/admin/cases/{case_id}")
-async def update_case(case_id: str, case: CaseStudy):
+async def update_case(case_id: str, case: CaseStudy, payload: dict = Depends(verify_token)):
     doc = case.model_dump()
     result = await db.cases.update_one({"id": case_id}, {"$set": doc})
     if result.modified_count == 0:
@@ -449,7 +449,7 @@ async def update_case(case_id: str, case: CaseStudy):
     return {"message": "Case updated"}
 
 @api_router.delete("/admin/cases/{case_id}")
-async def delete_case(case_id: str):
+async def delete_case(case_id: str, payload: dict = Depends(verify_token)):
     result = await db.cases.delete_one({"id": case_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Case not found")
@@ -457,13 +457,13 @@ async def delete_case(case_id: str):
 
 # Events CRUD
 @api_router.post("/admin/events")
-async def create_event(event: Event):
+async def create_event(event: Event, payload: dict = Depends(verify_token)):
     doc = event.model_dump()
     await db.events.insert_one(doc)
     return {"message": "Event created", "id": event.id}
 
 @api_router.put("/admin/events/{event_id}")
-async def update_event(event_id: str, event: Event):
+async def update_event(event_id: str, event: Event, payload: dict = Depends(verify_token)):
     doc = event.model_dump()
     result = await db.events.update_one({"id": event_id}, {"$set": doc})
     if result.modified_count == 0:
@@ -471,7 +471,7 @@ async def update_event(event_id: str, event: Event):
     return {"message": "Event updated"}
 
 @api_router.delete("/admin/events/{event_id}")
-async def delete_event(event_id: str):
+async def delete_event(event_id: str, payload: dict = Depends(verify_token)):
     result = await db.events.delete_one({"id": event_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Event not found")
@@ -479,13 +479,13 @@ async def delete_event(event_id: str):
 
 # Projects CRUD
 @api_router.post("/admin/projects")
-async def create_project(project: InvestmentProject):
+async def create_project(project: InvestmentProject, payload: dict = Depends(verify_token)):
     doc = project.model_dump()
     await db.projects.insert_one(doc)
     return {"message": "Project created", "id": project.id}
 
 @api_router.put("/admin/projects/{project_id}")
-async def update_project(project_id: str, project: InvestmentProject):
+async def update_project(project_id: str, project: InvestmentProject, payload: dict = Depends(verify_token)):
     doc = project.model_dump()
     result = await db.projects.update_one({"id": project_id}, {"$set": doc})
     if result.modified_count == 0:
@@ -493,7 +493,7 @@ async def update_project(project_id: str, project: InvestmentProject):
     return {"message": "Project updated"}
 
 @api_router.delete("/admin/projects/{project_id}")
-async def delete_project(project_id: str):
+async def delete_project(project_id: str, payload: dict = Depends(verify_token)):
     result = await db.projects.delete_one({"id": project_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Project not found")
@@ -501,13 +501,13 @@ async def delete_project(project_id: str):
 
 # Partners CRUD
 @api_router.post("/admin/partners")
-async def create_partner(partner: Partner):
+async def create_partner(partner: Partner, payload: dict = Depends(verify_token)):
     doc = partner.model_dump()
     await db.partners.insert_one(doc)
     return {"message": "Partner created", "id": partner.id}
 
 @api_router.put("/admin/partners/{partner_id}")
-async def update_partner(partner_id: str, partner: Partner):
+async def update_partner(partner_id: str, partner: Partner, payload: dict = Depends(verify_token)):
     doc = partner.model_dump()
     result = await db.partners.update_one({"id": partner_id}, {"$set": doc})
     if result.modified_count == 0:
@@ -515,7 +515,7 @@ async def update_partner(partner_id: str, partner: Partner):
     return {"message": "Partner updated"}
 
 @api_router.delete("/admin/partners/{partner_id}")
-async def delete_partner(partner_id: str):
+async def delete_partner(partner_id: str, payload: dict = Depends(verify_token)):
     result = await db.partners.delete_one({"id": partner_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Partner not found")
@@ -523,13 +523,13 @@ async def delete_partner(partner_id: str):
 
 # Articles CRUD
 @api_router.post("/admin/articles")
-async def create_article(article: Article):
+async def create_article(article: Article, payload: dict = Depends(verify_token)):
     doc = article.model_dump()
     await db.articles.insert_one(doc)
     return {"message": "Article created", "id": article.id}
 
 @api_router.put("/admin/articles/{article_id}")
-async def update_article(article_id: str, article: Article):
+async def update_article(article_id: str, article: Article, payload: dict = Depends(verify_token)):
     doc = article.model_dump()
     result = await db.articles.update_one({"id": article_id}, {"$set": doc})
     if result.modified_count == 0:
@@ -537,7 +537,7 @@ async def update_article(article_id: str, article: Article):
     return {"message": "Article updated"}
 
 @api_router.delete("/admin/articles/{article_id}")
-async def delete_article(article_id: str):
+async def delete_article(article_id: str, payload: dict = Depends(verify_token)):
     result = await db.articles.delete_one({"id": article_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Article not found")
@@ -545,13 +545,13 @@ async def delete_article(article_id: str):
 
 # Team CRUD
 @api_router.post("/admin/team")
-async def create_team_member(member: TeamMember):
+async def create_team_member(member: TeamMember, payload: dict = Depends(verify_token)):
     doc = member.model_dump()
     await db.team.insert_one(doc)
     return {"message": "Team member created", "id": member.id}
 
 @api_router.put("/admin/team/{member_id}")
-async def update_team_member(member_id: str, member: TeamMember):
+async def update_team_member(member_id: str, member: TeamMember, payload: dict = Depends(verify_token)):
     doc = member.model_dump()
     result = await db.team.update_one({"id": member_id}, {"$set": doc})
     if result.modified_count == 0:
@@ -559,7 +559,7 @@ async def update_team_member(member_id: str, member: TeamMember):
     return {"message": "Team member updated"}
 
 @api_router.delete("/admin/team/{member_id}")
-async def delete_team_member(member_id: str):
+async def delete_team_member(member_id: str, payload: dict = Depends(verify_token)):
     result = await db.team.delete_one({"id": member_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Team member not found")
