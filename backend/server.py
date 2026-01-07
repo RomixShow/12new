@@ -33,9 +33,12 @@ class Service(BaseModel):
     id: str
     slug: str
     name: str
+    name_en: Optional[str] = None
     description: str
+    description_en: Optional[str] = None
     image_url: str
     features: List[str]
+    features_en: Optional[List[str]] = None
 
 class CaseStudy(BaseModel):
     model_config = ConfigDict(extra="ignore")
