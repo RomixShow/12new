@@ -151,6 +151,46 @@ class ContactForm(BaseModel):
 async def root():
     return {"message": "AICHIN GROUP API"}
 
+# Translation utility
+def auto_translate(text: str, source_lang: str = 'ru', target_lang: str = 'en') -> str:
+    """Auto-translate text using Google Translate"""
+    try:
+        if not text or text.strip() == '':
+            return text
+        translator = GoogleTranslator(source=source_lang, target=target_lang)
+        return translator.translate(text)
+    except Exception as e:
+        logging.error(f"Translation error: {e}")
+        return text
+
+def auto_translate_list(items: List[str], source_lang: str = 'ru', target_lang: str = 'en') -> List[str]:
+    """Auto-translate list of strings"""
+    return [auto_translate(item, source_lang, target_lang) for item in items]
+
+def add_translations(item: dict) -> dict:
+    """Add English translations to an item if not present"""
+    if 'name' in item and not item.get('name_en'):
+        item['name_en'] = auto_translate(item['name'])
+    if 'title' in item and not item.get('title_en'):
+        item['title_en'] = auto_translate(item['title'])
+    if 'description' in item and not item.get('description_en'):
+        item['description_en'] = auto_translate(item['description'])
+    if 'excerpt' in item and not item.get('excerpt_en'):
+        item['excerpt_en'] = auto_translate(item['excerpt'])
+    if 'content' in item and not item.get('content_en'):
+        item['content_en'] = auto_translate(item['content'])
+    if 'location' in item and not item.get('location_en'):
+        item['location_en'] = auto_translate(item['location'])
+    if 'challenge' in item and not item.get('challenge_en'):
+        item['challenge_en'] = auto_translate(item['challenge'])
+    if 'solution' in item and not item.get('solution_en'):
+        item['solution_en'] = auto_translate(item['solution'])
+    if 'features' in item and isinstance(item['features'], list) and not item.get('features_en'):
+        item['features_en'] = auto_translate_list(item['features'])
+    if 'results' in item and isinstance(item['results'], list) and not item.get('results_en'):
+        item['results_en'] = auto_translate_list(item['results'])
+    return item
+
 # Services
 @api_router.get("/services", response_model=List[Service])
 async def get_services():
