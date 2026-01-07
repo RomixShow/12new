@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "invest": "Investments",
+    "partners": "Partners",
+    "events": "Events",
+    "cases": "Cases",
+    "insights": "Insights",
+    "contact": "Contact",
+    "request": "Get Started"
+  },
+  "hero": {
+    "title": "CONNECTING CHINA WITH INTERNATIONAL MARKETS",
+    "subtitle": "Full-cycle sourcing, manufacturing, investments & partnerships",
+    "cta_primary": "Get Started",
+    "cta_secondary": "Our Services"
+  },
+  "services": {
+    "title": "Business Directions",
+    "trade": {
+      "name": "Trade & Manufacturing",
+      "desc": "Full-cycle sourcing and production in China"
+    },
+    "logistics": {
+      "name": "Logistics & QC",
+      "desc": "Logistics and quality control"
+    },
+    "travel": {
+      "name": "Corporate Travel",
+      "desc": "Corporate trips and business events"
+    },
+    "investments": {
+      "name": "Investments",
+      "desc": "Investment projects and partnerships"
+    }
+  },
+  "process": {
+    "title": "How We Work",
+    "step1": "Brief and requirements analysis",
+    "step2": "Supplier and partner selection",
+    "step3": "Verification and due diligence",
+    "step4": "Contract execution",
+    "step5": "Production and quality control",
+    "step6": "Delivery and support"
+  },
+  "stats": {
+    "years": "years on market",
+    "countries": "countries presence",
+    "projects": "completed projects",
+    "launch": "average launch time"
+  },
+  "footer": {
+    "company": "Company",
+    "services": "Services",
+    "resources": "Resources",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact_title": "Contact",
+    "address": "Offices in China, Russia, UAE",
+    "email": "mail@aichin.org",
+    "rights": "© 2025 AICHIN GROUP. All rights reserved."
+  },
+  "common": {
+    "learn_more": "Learn More",
+    "view_all": "View All",
+    "request_quote": "Request Quote",
+    "schedule_call": "Schedule Call",
+    "download_presentation": "Download Presentation",
+    "send": "Send",
+    "loading": "Loading..."
+  }
+}
