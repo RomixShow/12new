@@ -178,6 +178,65 @@ class ContactForm(BaseModel):
 async def root():
     return {"message": "AICHIN GROUP API"}
 
+# Auth functions
+def hash_password(password: str) -> str:
+    """Hash password using bcrypt"""
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+def verify_password(password: str, password_hash: str) -> bool:
+    """Verify password against hash"""
+    return bcrypt.checkpw(password.encode('utf-8'), password_hash.encode('utf-8'))
+
+def create_access_token(data: dict) -> str:
+    """Create JWT access token"""
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)) -> dict:
+    """Verify JWT token"""
+    try:
+        token = credentials.credentials
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+# Auth endpoints
+@api_router.post("/auth/login", response_model=TokenResponse)
+async def login(login_data: LoginRequest):
+    """Login endpoint"""
+    user = await db.users.find_one({"username": login_data.username}, {"_id": 0})
+    if not user or not verify_password(login_data.password, user["password_hash"]):
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    
+    access_token = create_access_token({"sub": user["username"], "user_id": user["id"]})
+    return TokenResponse(access_token=access_token)
+
+@api_router.post("/auth/verify")
+async def verify_auth(payload: dict = Depends(verify_token)):
+    """Verify token is valid"""
+    return {"valid": True, "username": payload.get("sub")}
+
+@api_router.post("/auth/create-user")
+async def create_user(username: str, password: str):
+    """Create new admin user - REMOVE THIS IN PRODUCTION or add protection"""
+    existing = await db.users.find_one({"username": username})
+    if existing:
+        raise HTTPException(status_code=400, detail="User already exists")
+    
+    user = {
+        "id": str(uuid.uuid4()),
+        "username": username,
+        "password_hash": hash_password(password),
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.users.insert_one(user)
+    return {"message": "User created", "username": username}
+
 # Translation utility
 def auto_translate(text: str, source_lang: str = 'ru', target_lang: str = 'en') -> str:
     """Auto-translate text using Google Translate"""
