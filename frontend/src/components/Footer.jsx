@@ -29,7 +29,7 @@ export default function Footer() {
   const legalLinks = [
     { path: '/privacy', label: t('footer.privacy') },
     { path: '/terms', label: t('footer.terms') },
-    { path: '/nda', label: 'NDA' },
+    { path: '/nda', label: t('footer.nda') },
   ];
 
   return (
