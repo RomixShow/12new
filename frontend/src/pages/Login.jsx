@@ -103,11 +103,6 @@ export default function Login() {
             {loading ? 'Logging in...' : 'Login'}
           </Button>
         </form>
-
-        <div className="mt-8 text-center text-sm text-white/40">
-          <p>Default credentials:</p>
-          <p className="font-mono">admin / admin123</p>
-        </div>
       </motion.div>
     </div>
   );
