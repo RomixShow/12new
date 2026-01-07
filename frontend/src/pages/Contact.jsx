@@ -14,7 +14,6 @@ const API = `${BACKEND_URL}/api`;
 
 export default function Contact() {
   const { t } = useTranslation();
-  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -34,8 +33,7 @@ export default function Contact() {
     setLoading(true);
     try {
       await axios.post(`${API}/contact`, formData);
-      toast({
-        title: 'Заявка отправлена!',
+      toast.success('Заявка отправлена!', {
         description: 'Мы свяжемся с вами в ближайшее время.',
       });
       setFormData({
@@ -47,10 +45,8 @@ export default function Contact() {
         message: '',
       });
     } catch (error) {
-      toast({
-        title: 'Ошибка',
+      toast.error('Ошибка', {
         description: 'Не удалось отправить заявку. Попробуйте позже.',
-        variant: 'destructive',
       });
     } finally {
       setLoading(false);
