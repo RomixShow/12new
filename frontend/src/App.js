@@ -48,6 +48,7 @@ function App() {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/download" element={<Download />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
           <Footer />
           <Toaster />
