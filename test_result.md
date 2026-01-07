@@ -101,3 +101,158 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Исправить перевод на всех страницах сайта AICHIN GROUP и исправить мобильную верстку (круглый фон меню)"
+
+backend:
+  - task: "API endpoints with language support"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "API endpoints already support lang parameter for localization"
+
+frontend:
+  - task: "About page translation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/About.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Refactored to use t() function from i18n for all static texts"
+
+  - task: "Services page translation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Services.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Added t('services.subtitle') for subtitle translation"
+
+  - task: "ServiceDetail page translation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/ServiceDetail.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Complete refactor to use i18n translation keys for all content"
+
+  - task: "Contact page translation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Contact.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Refactored to use t() for all form labels and static texts"
+
+  - task: "Invest page translation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Invest.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Added translation keys for subtitle and filters"
+
+  - task: "Partners page translation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Partners.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Added t('partners.subtitle') for subtitle"
+
+  - task: "Events page translation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Events.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Added t('events.subtitle') for subtitle"
+
+  - task: "Cases page translation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Cases.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Added t('cases.subtitle') for subtitle"
+
+  - task: "Insights page translation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Insights.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Added t('insights.subtitle') for subtitle"
+
+  - task: "Mobile header fix - round background"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Header.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Changed rounded-full to rounded-2xl lg:rounded-full for mobile"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: true
+
+test_plan:
+  current_focus:
+    - "Language switching on all pages"
+    - "Mobile header shape"
+    - "Contact form localization"
+  stuck_tasks: []
+  test_all: true
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Completed translation fixes for all major pages. Updated localization JSON files with new keys for About, Contact, ServiceDetail, Invest, Partners, Events, Cases, Insights pages. Fixed mobile header from round to rectangular shape. Screenshots verified: EN/RU switching works correctly on About, Contact, Services, ServiceDetail pages. Ready for comprehensive frontend testing."
