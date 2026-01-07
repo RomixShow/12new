@@ -11,6 +11,15 @@ import About from './pages/About';
 import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
 import Contact from './pages/Contact';
+import Invest from './pages/Invest';
+import Partners from './pages/Partners';
+import Events from './pages/Events';
+import Cases from './pages/Cases';
+import Insights from './pages/Insights';
+import NDA from './pages/NDA';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import Download from './pages/Download';
 
 function App() {
   useEffect(() => {
