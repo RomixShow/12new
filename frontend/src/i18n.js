@@ -8,8 +8,9 @@ const resources = {
   en: { translation: translationsEN }
 };
 
-const userLang = navigator.language || navigator.userLanguage;
-const defaultLang = 'en'; // Default to English
+const userLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+const savedLang = localStorage.getItem('site_lang');
+const defaultLang = savedLang || (userLang.startsWith('ru') ? 'ru' : 'en');
 
 i18n
   .use(initReactI18next)
@@ -21,5 +22,9 @@ i18n
       escapeValue: false
     }
   });
+
+i18n.on('languageChanged', (lng) => {
+  localStorage.setItem('site_lang', lng);
+});
 
 export default i18n;

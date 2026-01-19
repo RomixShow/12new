@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Globe, Package, Plane, TrendingUp } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import ParticleBackground from '../components/ParticleBackground';
+import LiquidEther from '../components/LiquidEther';
 import CountUp from 'react-countup';
 import Marquee from 'react-fast-marquee';
 import { useEffect, useState } from 'react';
@@ -89,20 +89,34 @@ export default function Home() {
     t('process.step6'),
   ];
 
+  const TRUST_PARTNERS = [
+    { name: "Alfa Bank", logo: "/partners/1.jpg", url: "https://alfabank.ru" },
+    { name: "VTB", logo: "/partners/2.jpg", url: "https://vtb.ru" },
+    { name: "Ozon", logo: "/partners/3.jpg", url: "https://www.ozon.ru" },
+    { name: "Wildberries", logo: "/partners/4.jpg", url: "https://www.wildberries.ru" },
+    { name: "Yandex", logo: "/partners/1.jpg", url: "https://yandex.ru" },
+    { name: "Huawei", logo: "/partners/1.jpg", url: "https://www.huawei.com" },
+  ];
+
   return (
     <div className="min-h-screen" data-testid="home-page">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero" data-testid="hero-section">
-        <ParticleBackground />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505]" />
+      <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden gradient-hero pt-24 sm:pt-28 lg:pt-0" data-testid="hero-section">
+        <div className="absolute inset-0 z-0">
+          <LiquidEther
+            colors={["#e70d0d", "#850000", "#ea6d57"]}
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505] z-[1]" />
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-black font-heading text-white mb-6 tracking-tighter uppercase leading-tight text-shadow-red">
+            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] font-black font-heading text-white mb-6 tracking-tighter uppercase leading-tight text-shadow-red mx-auto max-w-none md:max-w-[50%]">
               {t('hero.title')}
             </h1>
             <p className="text-lg md:text-xl text-white/70 mb-12 max-w-3xl mx-auto leading-relaxed">
@@ -137,13 +151,24 @@ export default function Home() {
 
       {/* Trust Bar */}
       <section className="py-12 bg-[#0A0A0A] border-y border-white/10" data-testid="trust-bar-section">
-        <Marquee gradient={false} speed={50}>
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <div key={i} className="mx-8 grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
-              <div className="w-32 h-16 bg-white/5 rounded-lg flex items-center justify-center text-white/40 text-xs">
-                Partner {i}
+        <Marquee gradient={false} speed={50} pauseOnHover>
+          {TRUST_PARTNERS.map((p) => (
+            <a
+              key={p.name}
+              href={p.url || "#"}
+              target={p.url ? "_blank" : undefined}
+              rel={p.url ? "noreferrer" : undefined}
+              className="grayscale hover:grayscale-0 transition-all"
+            >
+              <div className="px-20 flex items-center justify-center">
+                <img
+                  src={p.logo}
+                  alt={p.name}
+                  className="h-20 max-w-[320px] object-contain opacity-70 hover:opacity-100 transition"
+                  loading="lazy"
+                />
               </div>
-            </div>
+            </a>
           ))}
         </Marquee>
       </section>

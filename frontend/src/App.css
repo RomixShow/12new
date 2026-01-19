@@ -1,27 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Manrope:wght@300;400;500;700&family=JetBrains+Mono:wght@400&display=swap');
-
 * {
   box-sizing: border-box;
 }
 
 html.dark {
-  background: #050505;
-  color: #FFFFFF;
+  background: var(--site-background, #050505);
+  color: var(--site-foreground, #FFFFFF);
 }
 
 body {
-  font-family: 'Manrope', sans-serif;
-  background: #050505;
-  color: #FFFFFF;
+  font-family: var(--font-body, Arial, sans-serif);
+  background: var(--site-background, #050505);
+  color: var(--site-foreground, #FFFFFF);
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Unbounded', sans-serif;
+  font-family: var(--font-heading, Arial, sans-serif);
 }
 
 .font-heading {
-  font-family: 'Unbounded', sans-serif;
+  font-family: var(--font-heading, Arial, sans-serif);
 }
 
 .font-mono {

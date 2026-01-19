@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Mail, MapPin } from 'lucide-react';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 
 export default function Footer() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { settings } = useSiteSettings();
 
   const companyLinks = [
     { path: '/about', label: t('nav.about') },
@@ -32,6 +34,35 @@ export default function Footer() {
     { path: '/nda', label: t('footer.nda') },
   ];
 
+  const sections = settings?.footer?.sections?.length
+    ? settings.footer.sections.map((section) => ({
+      title: i18n.language === 'en' && section.title_en ? section.title_en : section.title,
+      links: (section.links || []).map((link) => ({
+        ...link,
+        label: i18n.language === 'en' && link.label_en ? link.label_en : link.label,
+      })),
+    }))
+    : [
+      { title: t('footer.company'), links: companyLinks },
+      { title: t('footer.services'), links: serviceLinks },
+      { title: t('footer.resources'), links: resourceLinks },
+      { title: t('footer.legal'), links: legalLinks },
+    ];
+
+  const socials = settings?.footer?.socials?.length
+    ? settings.footer.socials
+    : [
+      { label: 'LinkedIn', href: 'https://linkedin.com' },
+      { label: 'WeChat', href: 'https://wechat.com' },
+      { label: 'Telegram', href: 'https://telegram.org' },
+    ];
+
+  const address = i18n.language === 'en' && settings?.footer?.address_en
+    ? settings.footer.address_en
+    : settings?.footer?.address || t('footer.address');
+  const email = settings?.footer?.email || 'mail@aichin.org';
+  const phone = settings?.footer?.phone;
+
   return (
     <footer className="relative bg-[#0A0A0A] border-t border-white/10 overflow-hidden" data-testid="main-footer">
       {/* Massive background text */}
@@ -41,77 +72,33 @@ export default function Footer() {
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
-          {/* Company */}
-          <div>
-            <h3 className="font-heading font-bold text-white mb-6">{t('footer.company')}</h3>
-            <ul className="space-y-3">
-              {companyLinks.map((link) => (
-                <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className="text-sm text-white/60 hover:text-[#E11D2E] transition-colors"
-                    data-testid={`footer-link-${link.path.replace('/', '')}`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h3 className="font-heading font-bold text-white mb-6">{t('footer.services')}</h3>
-            <ul className="space-y-3">
-              {serviceLinks.map((link) => (
-                <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className="text-sm text-white/60 hover:text-[#E11D2E] transition-colors"
-                    data-testid={`footer-service-link-${link.path.split('/').pop()}`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h3 className="font-heading font-bold text-white mb-6">{t('footer.resources')}</h3>
-            <ul className="space-y-3">
-              {resourceLinks.map((link) => (
-                <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className="text-sm text-white/60 hover:text-[#E11D2E] transition-colors"
-                    data-testid={`footer-resource-link-${link.path.replace('/', '')}`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h3 className="font-heading font-bold text-white mb-6">{t('footer.legal')}</h3>
-            <ul className="space-y-3">
-              {legalLinks.map((link) => (
-                <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className="text-sm text-white/60 hover:text-[#E11D2E] transition-colors"
-                    data-testid={`footer-legal-link-${link.path.replace('/', '')}`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {sections.map((section) => (
+            <div key={section.title}>
+              <h3 className="font-heading font-bold text-white mb-6">{section.title}</h3>
+              <ul className="space-y-3">
+                {section.links.map((link) => (
+                  <li key={link.href || link.path}>
+                    {link.href?.startsWith('http') ? (
+                      <a
+                        href={link.href}
+                        className="text-sm text-white/60 hover:text-[#E11D2E] transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        to={link.href || link.path}
+                        className="text-sm text-white/60 hover:text-[#E11D2E] transition-colors"
+                        data-testid={`footer-link-${(link.href || link.path || '').replace('/', '')}`}
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           {/* Contact */}
           <div>
@@ -119,18 +106,21 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start space-x-2 text-sm text-white/60">
                 <MapPin size={16} className="mt-1 flex-shrink-0" />
-                <span>{t('footer.address')}</span>
+                <span>{address}</span>
               </li>
               <li className="flex items-start space-x-2">
                 <Mail size={16} className="mt-1 flex-shrink-0 text-white/60" />
                 <a
-                  href="mailto:mail@aichin.org"
+                  href={`mailto:${email}`}
                   className="text-sm text-[#E11D2E] hover:underline"
                   data-testid="footer-email-link"
                 >
-                  {t('footer.email')}
+                  {email}
                 </a>
               </li>
+              {phone && (
+                <li className="text-sm text-white/60">Phone: {phone}</li>
+              )}
             </ul>
           </div>
         </div>
@@ -139,33 +129,17 @@ export default function Footer() {
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
           <p className="text-sm text-white/40">{t('footer.rights')}</p>
           <div className="flex items-center space-x-4">
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/40 hover:text-[#E11D2E] transition-colors"
-              data-testid="footer-linkedin-link"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://wechat.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/40 hover:text-[#E11D2E] transition-colors"
-              data-testid="footer-wechat-link"
-            >
-              WeChat
-            </a>
-            <a
-              href="https://telegram.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/40 hover:text-[#E11D2E] transition-colors"
-              data-testid="footer-telegram-link"
-            >
-              Telegram
-            </a>
+            {socials.map((social) => (
+              <a
+                key={social.href}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/40 hover:text-[#E11D2E] transition-colors"
+              >
+                {social.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>
